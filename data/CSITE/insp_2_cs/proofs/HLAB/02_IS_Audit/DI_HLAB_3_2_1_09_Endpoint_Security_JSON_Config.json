@@ -1,0 +1,32 @@
+﻿{
+  "metadata": {
+    "bankName": "Himgiri Local Area Bank Limited",
+    "bankCode": "HLAB",
+    "observationId": "3.2.1",
+    "documentType": "JSON configuration for endpoint security policy enforcement",
+    "createdDate": "18-06-2026",
+    "version": "1.0.0",
+    "classification": "Confidential"
+  },
+  "controls": {
+    "enabled": true,
+    "complianceStatus": "Complied",
+    "lastReviewDate": "18-06-2026",
+    "nextReviewDate": "18-09-2026",
+    "reviewFrequency": "Quarterly"
+  },
+  "auditTrail": [
+    {
+      "action": "Created",
+      "timestamp": "2026-06-18T15:15:56",
+      "user": "IT Audit & Compliance Team",
+      "details": "JSON configuration for endpoint security policy enforcement - 3.2.1"
+    }
+  ],
+  "evidence": {
+    "description": "JSON configuration for endpoint security policy enforcement",
+    "location": "\\internal\audit\HLAB\3_2_1",
+    "retentionPeriod": "5 years",
+    "format": "JSON"
+  }
+}

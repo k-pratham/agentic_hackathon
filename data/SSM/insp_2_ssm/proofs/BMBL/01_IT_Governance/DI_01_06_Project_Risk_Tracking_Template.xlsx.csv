@@ -1,0 +1,103 @@
+Document Reference,DI_01_06,Version,1.0,Effective Date,01-Jun-2024
+Bank Name,Bharat Mercantile Bank Limited,Department,PMO - IT Governance,Owner,CIO
+,,,,,,
+"PROJECT RISK TRACKING, BUDGET VARIANCE & BENEFIT REALISATION TEMPLATE",,,,,,
+,,,,,,
+,,,,,,
+"SECTION 1: PROJECT MASTER DATA",,,,,,
+,,,,,,
+Project ID,Project Name,Project Sponsor,Project Manager,Start Date,Planned End Date
+P001,Unified Payments Platform,CIO,Mr. Amit Shah,01-Jan-2024,31-Dec-2024
+P002,Branch Automation System,COO,Ms. Ritu Agarwal,01-Mar-2024,28-Feb-2025
+P003,Data Lake & Analytics Hub,CIO,Mr. Karan Joshi,01-Apr-2024,31-Mar-2025
+P004,Mobile Banking App v3.0,Head - Digital Banking,Ms. Nandini Rao,15-May-2024,15-Nov-2024
+P005,Regulatory Reporting Engine,CRO,Mr. Vineet Sharma,01-Jun-2024,31-May-2025
+P006,Cyber Resilience Platform,CIO,Dr. Smita Desai,01-Mar-2024,30-Jun-2025
+P007,Loan Origination System v2.0,Head - Retail Banking,Mr. Rohan Mehta,01-Apr-2024,30-Sep-2025
+P008,API Gateway & Open Banking Platform,CTO,Ms. Priya Kapoor,01-Jul-2024,30-Jun-2025
+P009,Data Center Modernization,CIO,Mr. Arvind Singh,01-Feb-2024,31-Jan-2025
+P010,Customer Onboarding Digital Platform,Head - Operations,Mr. Suresh Nair,01-Jun-2024,31-May-2025
+,,,,,,
+,,,,,,
+"SECTION 2: PROJECT RISK REGISTER",,,,,,
+,,,,,,
+Project ID,Risk ID,Risk Category,Risk Description,Likelihood (1-5),Impact (1-5),Risk Score (L x I),RAG Status,Mitigation Action,Risk Owner,Mitigation Due Date,Residual Risk Score,As on Date
+P001,R001,Technology,Integration failure with legacy CBS,3,4,12,Amber,Conduct integration testing in staging environment; engage middleware specialist,Project Manager,15-Oct-2024,6,15-Jul-2024
+P001,R002,Vendor,Vendor API performance degradation at peak load,4,3,12,Amber,Load testing with 150% peak volume; contractual SLA penalty clause,Vendor Manager,30-Sep-2024,8,15-Jul-2024
+P001,R003,Cyber,Data exposure during API transmission,2,5,10,Amber,End-to-end encryption (TLS 1.3 + payload encryption); annual penetration test,CISO,31-Dec-2024,4,15-Jul-2024
+P001,R004,Resource,Key DBA resource attrition risk,4,3,12,Amber,Identify backup resource; knowledge transfer sessions; retention bonus,Critical resource identified,15-Aug-2024,6,15-Jul-2024
+P002,R001,Technology,Branch hardware compatibility with new OS,3,3,9,Green,Hardware compatibility matrix completed; upgrade identified branches,Project Manager,31-Aug-2024,6,15-Jul-2024
+P002,R002,Operational,Branch staff change management resistance,3,4,12,Amber,Training program (phased rollout); communication plan,Training Lead,15-Dec-2024,9,15-Jul-2024
+P003,R001,Vendor,Data vendor financial instability,4,5,20,Red,"Alternative vendor identification initiated; legal holds on source code ",Vendor Manager,30-Sep-2024,15,15-Jul-2024
+P003,R002,Technology,Data migration failure from legacy sources,3,5,15,Red,Data profiling complete; migration dry-run scheduled for Aug 2024,Technical Lead,15-Oct-2024,10,15-Jul-2024
+P003,R003,Regulatory,Failure to meet RBI data localisation requirements,2,5,10,Amber,Data residency mapping complete; cloud region restricted to India,Compliance Head,30-Nov-2024,5,15-Jul-2024
+P004,R001,Technology,App performance degradation on low-end devices,3,4,12,Amber,Performance optimization for 2GB RAM devices; device matrix testing,QA Lead,15-Oct-2024,8,15-Jul-2024
+P004,R002,Cyber,Insecure data storage on mobile device,2,5,10,Amber,Mobile app security testing (OWASP MASVS); remote wipe capability,CISO,30-Sep-2024,4,15-Jul-2024
+P005,R001,Regulatory,Regulatory reporting format changes before go-live,3,4,12,Amber,"Flexible rule engine design; regulatory change monitoring process ",Compliance Head,Ongoing,9,15-Jul-2024
+P006,R001,Technology,SOC tool integration delays with existing SIEM,4,3,12,Amber,Parallel track implementation; vendor specialist on site,Technical Lead,15-Sep-2024,8,15-Jul-2024
+P007,R001,Technology,Data migration from legacy LOS to new platform,3,4,12,Amber,Phased migration with data validation at each phase,Technical Lead,30-Jun-2025,9,15-Jul-2024
+P008,R001,Cyber,API gateway vulnerability to OWASP Top 10 attacks,3,5,15,Red,Regular security scanning; WAF implementation; bug bounty program,CISO,31-Dec-2024,6,15-Jul-2024
+P009,R001,Technology,Extended downtime during data center migration,2,5,10,Amber,Parallel run for 30 days; rollback plan tested; change window approval,IT Operations Head,30-Oct-2024,5,15-Jul-2024
+P010,R001,Operational,Digital onboarding KYC verification failure rate > 15%,4,3,12,Amber,AI-based document verification enhancement; manual fallback process,Operations Head,31-Mar-2025,8,15-Jul-2024
+,,,,,,
+,,,,,,
+"SECTION 3: BUDGET VARIANCE TRACKING",,,,,,,,
+,,,,,,
+Project ID,Project Name,Original Budget (INR Lakhs),Revised Budget (INR Lakhs),Cumulative Actual Spend (INR Lakhs),Committed Spend (INR Lakhs),Forecast at Completion (INR Lakhs),Variance % (Forecast - Revised)/Revised,Budget Status,As on Date,Remarks
+P001,Unified Payments Platform,4500.00,4600.00,2850.00,350.00,4620.00,0.43%,On Track,15-Jul-2024,
+P002,Branch Automation System,2800.00,2800.00,2210.00,180.00,2950.00,5.36%,Watch,15-Jul-2024,Additional rollout locations added
+P003,Data Lake & Analytics Hub,6200.00,6200.00,1875.00,420.00,6750.00,8.87%,Alert,15-Jul-2024,Vendor delay causing cost overrun
+P004,Mobile Banking App v3.0,1250.00,1250.00,980.00,50.00,1275.00,2.00%,On Track,15-Jul-2024,
+P005,Regulatory Reporting Engine,875.00,875.00,620.00,45.00,895.00,2.29%,On Track,15-Jul-2024,
+P006,Cyber Resilience Platform,3200.00,3300.00,890.00,120.00,3400.00,3.03%,On Track,15-Jul-2024,SOC tool license cost higher than budgeted
+P007,Loan Origination System v2.0,5500.00,5500.00,420.00,60.00,5620.00,2.18%,On Track,15-Jul-2024,In initiation phase
+P008,API Gateway & Open Banking Platform,2800.00,2800.00,150.00,25.00,2850.00,1.79%,On Track,15-Jul-2024,In initiation phase
+P009,Data Center Modernization,4800.00,5000.00,3850.00,200.00,5150.00,3.00%,On Track,15-Jul-2024,Additional UPS capacity approved
+P010,Customer Onboarding Digital Platform,2100.00,2100.00,180.00,30.00,2150.00,2.38%,On Track,15-Jul-2024,In initiation phase
+,,,,,,
+,,,,,,
+"SECTION 4: BENEFIT REALISATION TRACKING",,,,,,,,
+,,,,,,
+Project ID,Project Name,Benefit Category,KPI,Target Value,Current Value,% Achieved,Measurement Date,Benefit Realisation Status,Remarks
+P001,Unified Payments Platform,Financial,Cost savings (INR Lakhs per annum),500.00,175.00,35%,30-Jun-2024,In Progress,Transaction cost reduction from 0.25% to 0.18%
+P001,Unified Payments Platform,Operational,Transaction processing time reduction (%),50%,22%,44%,30-Jun-2024,In Progress,
+P001,Unified Payments Platform,Strategic,UPI market share increase (%),2.0%,1.2%,60%,30-Jun-2024,In Progress,
+P002,Branch Automation System,Operational,Average teller transaction time reduction (%),40%,25%,63%,30-Jun-2024,In Progress,
+P002,Branch Automation System,Financial,Paper cost reduction (INR Lakhs per annum),200.00,124.00,62%,30-Jun-2024,In Progress,
+P003,Data Lake & Analytics Hub,Strategic,Number of analytics use cases deployed,25,4,16%,30-Jun-2024,At Risk,"Vendor delay impacted use case deployment"
+P003,Data Lake & Analytics Hub,Operational,Report generation time reduction (%),60%,8%,13%,30-Jun-2024,At Risk,Core data model yet to be finalized
+P004,Mobile Banking App v3.0,Strategic,Active mobile banking users increase (%),15%,7%,47%,30-Jun-2024,In Progress,
+P004,Mobile Banking App v3.0,Technology,App crash-free session rate (%),99.5%,98.2%,N/A,30-Jun-2024,In Progress,Target post-launch
+P005,Regulatory Reporting Engine,Operational,Regulatory report generation time (hours),2,1,50%,30-Jun-2024,On Track,
+P005,Regulatory Reporting Engine,Financial,Penalty avoidance (INR Lakhs per annum),100.00,0,100%,30-Jun-2024,On Track,No penalties incurred
+P006,Cyber Resilience Platform,Technology,Mean time to detect incident (MTTD) reduction (%),70%,25%,36%,30-Jun-2024,In Progress,SOC tool yet to be integrated
+P006,Cyber Resilience Platform,Technology,Mean time to respond (MTTR) reduction (%),60%,12%,20%,30-Jun-2024,In Progress,
+P007,Loan Origination System v2.0,Operational,Loan processing time reduction (%),50%,0%,0%,30-Jun-2024,Not Started,Project in initiation
+P007,Loan Origination System v2.0,Strategic,Digital loan origination volume (%),60%,0%,0%,30-Jun-2024,Not Started,
+P008,API Gateway & Open Banking Platform,Financial,New API-based revenue (INR Lakhs per annum),300.00,0,0%,30-Jun-2024,Not Started,Project in initiation
+P009,Data Center Modernization,Technology,Infrastructure uptime (%),99.99%,99.95%,N/A,30-Jun-2024,In Progress,Post-migration target
+P009,Data Center Modernization,Financial,Data center operations cost reduction (%),15%,8%,53%,30-Jun-2024,In Progress,Power optimization in new DC
+P010,Customer Onboarding Digital Platform,Operational,Average customer onboarding time reduction (%),80%,0%,0%,30-Jun-2024,Not Started,Project in initiation
+P010,Customer Onboarding Digital Platform,Strategic,Digital onboarding conversion rate (%),70%,0%,0%,30-Jun-2024,Not Started,
+,,,,,,
+,,,,,,
+"SECTION 5: PORTFOLIO SUMMARY DASHBOARD",,,,,,,,
+,,,,,,
+Parameter,Value,As on Date,,"Portfolio RAG Summary",Count,Percentage
+Total Active Projects,10,15-Jul-2024,,Green,4,40%
+Total Portfolio Budget (INR Lakhs),34425.00,15-Jul-2024,,Amber,4,40%
+Total Spend to Date (INR Lakhs),14025.00,15-Jul-2024,,Red,2,20%
+Overall Budget Variance (%),3.53%,15-Jul-2024,,,,,
+Projects on Schedule,6,15-Jul-2024,,,,,
+Projects Delayed,4,15-Jul-2024,,,,,
+Projects with High Risk (Score > 15),2,15-Jul-2024,,,,,
+Average Benefit Realisation (%),34%,15-Jul-2024,,,,,
+,,,,,,
+"PREPARED BY: PMO Lead",,,,"APPROVED BY: CIO",,,,
+,,,,,,
+,,,,,,
+"SECTION 6: DOCUMENT CHANGE LOG",,,,,,
+Change Date,Version,Description of Change,Author,Approved By
+01-Jun-2024,1.0,Initial template creation,PMO Lead,CIO
+15-Jun-2024,1.1,"Added Benefit Realisation KPI section",PMO Lead,CIO
+15-Jul-2024,1.2,"Updated risk categories; added residual risk score",PMO Lead,CIO

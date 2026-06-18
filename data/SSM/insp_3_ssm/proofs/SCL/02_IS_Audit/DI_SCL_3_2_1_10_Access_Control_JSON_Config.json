@@ -1,0 +1,32 @@
+﻿{
+  "metadata": {
+    "bankName": "Saptarishi Capital Limited",
+    "bankCode": "SCL",
+    "observationId": "3.2.1",
+    "documentType": "JSON configuration for data access control enforcement",
+    "createdDate": "18-06-2026",
+    "version": "1.0.0",
+    "classification": "Confidential"
+  },
+  "controls": {
+    "enabled": true,
+    "complianceStatus": "Complied",
+    "lastReviewDate": "18-06-2026",
+    "nextReviewDate": "18-09-2026",
+    "reviewFrequency": "Quarterly"
+  },
+  "auditTrail": [
+    {
+      "action": "Created",
+      "timestamp": "2026-06-18T15:13:08",
+      "user": "IT Audit & Compliance Team",
+      "details": "JSON configuration for data access control enforcement - 3.2.1"
+    }
+  ],
+  "evidence": {
+    "description": "JSON configuration for data access control enforcement",
+    "location": "\\internal\audit\SCL\3_2_1",
+    "retentionPeriod": "5 years",
+    "format": "JSON"
+  }
+}

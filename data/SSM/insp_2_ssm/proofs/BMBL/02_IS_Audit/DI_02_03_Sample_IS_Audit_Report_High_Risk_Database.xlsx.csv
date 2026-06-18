@@ -1,0 +1,61 @@
+Doc_No:DI-02-03,Version:1.0,Effective_Date:01-Apr-2024,Entity:Bharat Mercantile Bank Limited
+Prepared_By:IS Audit Division,Reviewed_By:CISO,Approved_By:Board Audit Committee
+,,,,,,,,,,,
+Section,Field,Detail,,,,,,,,,
+AUDIT_HEADER,Audit Title,IS Audit FY 2023-24 - Database Security Review,,,,,,,,,
+AUDIT_HEADER,Audit Period,01-Apr-2023 to 31-Mar-2024,,,,,,,,,
+AUDIT_HEADER,Scope Area,Database Security (Control Ref: 3.2.1),,,,,,,,,,
+AUDIT_HEADER,Audit Team,Anil Sharma (Lead), Priya Mehta, Rajesh Kumar,,,,,,,,,
+AUDIT_HEADER,Auditee Division,IT Operations - Database Administration,,,,,,,,,
+AUDIT_HEADER,Audit Methodology,RBI Master Direction on IS Audit compliance framework. Industry standards: ISO 27001:2022 A.8.24, NIST SP 800-53 AC-3,AU-12,SC-28.,,,,,,,,,,
+,,,,,,,,,,,
+OBS_DETAILS,Field,Value,,,,Remarks,,,,,
+OBS_DETAILS,Observation ID,OBS001,,,,,,,,,
+OBS_DETAILS,Risk Level,High - Critical,,,,,,,,,
+OBS_DETAILS,Risk Score,9.5/10,"Likelihood: 4.5/5 (Very Likely - default accounts are easily discoverable), Impact: 5.0/5 (Catastrophic - full DB access compromise)",,,,,,,,,
+OBS_DETAILS,Title,P default administrative accounts enabled on production SQL servers with weak password policy,,,,,,,,,
+OBS_DETAILS,Description,"During the IS audit of database security controls for FY 2023-24, the audit team identified that the default ""sa"" (system administrator) account was enabled on 14 out of 22 production SQL Server instances supporting the bank's core banking system, internet banking platform, and enterprise data warehouse. The password for these accounts had not been rotated in over 18 months. Additionally, Multi-Factor Authentication (MFA) was not configured for any database administrator (DBA) login. This configuration exposes the bank to unauthorized database access, privilege escalation, and potential data exfiltration from the bank's critical systems containing customer financial data, transaction records, and sensitive personal information.",,,,,,,,,
+,,,,,,,,,,,
+AFFECTED_SYSTEMS,System_Name,Environment,DB_Version,Role,Criticality,"sa_Account Status",PW_Last_Changed,MFA_Status,Remarks
+AFFECTED_SYSTEMS,CoreBanking-PROD-01,Production,SQL Server 2019 Enterprise,Core Banking / CBS,High,Enabled,12-Nov-2022,Not Configured,Primary CBS instance
+AFFECTED_SYSTEMS,CoreBanking-PROD-02,Production,SQL Server 2019 Enterprise,Core Banking / DR,High,Enabled,12-Nov-2022,Not Configured,DR instance - same exposure
+AFFECTED_SYSTEMS,InternetBanking-DB-01,Production,SQL Server 2017 Standard,Internet Banking,High,Enabled,05-Jan-2023,Not Configured,Handles 2M+ retail customers
+AFFECTED_SYSTEMS,EnterpriseDW-PROD,Production,SQL Server 2019 Enterprise,Data Warehouse,High,Enabled,20-Mar-2023,Not Configured,Contains customer analytics data
+AFFECTED_SYSTEMS,LoanSys-PROD-01,Production,SQL Server 2017 Standard,Loan Management System,High,Enabled,20-Mar-2023,Not Configured,Retail and corporate loans
+AFFECTED_SYSTEMS,TradeFinance-DB-01,Production,SQL Server 2017 Standard,Trade Finance,High,Enabled,10-Jun-2023,Not Configured,International trade transactions
+AFFECTED_SYSTEMS,Treasury-DB-PROD,Production,SQL Server 2019 Enterprise,Treasury Operations,High,Enabled,15-Jan-2023,Not Configured,Real-time Forex and MM deals
+AFFECTED_SYSTEMS,Cards-DB-PROD-01,Production,SQL Server 2016 Standard,Credit/Debit Card Management,High,Enabled,01-Sep-2022,Not Configured,Credit card processing
+AFFECTED_SYSTEMS,Cards-DB-PROD-02,Production,SQL Server 2016 Standard,Card Fraud Detection,High,Enabled,01-Sep-2022,Not Configured,Fraud analytics
+AFFECTED_SYSTEMS,UPI-DB-PROD,Production,SQL Server 2017 Enterprise,UPI Payments,High,Enabled,12-Feb-2023,Not Configured,UPI transaction processing
+AFFECTED_SYSTEMS,CRM-DB-PROD,Production,SQL Server 2017 Standard,Customer CRM,Medium,Enabled,12-Feb-2023,Not Configured,Customer 360 database
+AFFECTED_SYSTEMS,HROperations-DB,Production,SQL Server 2016 Standard,HR & Payroll,Medium,Enabled,01-Apr-2023,Not Configured,Employee data
+AFFECTED_SYSTEMS,DigitalLending-PROD,Production,SQL Server 2019 Enterprise,Digital Lending Platform,High,Enabled,20-Mar-2023,Not Configured,New digital lending product
+AFFECTED_SYSTEMS,SMEBanking-PROD,Production,SQL Server 2016 Standard,SME Banking,High,Enabled,15-Jan-2023,Not Configured,SME customer data
+,,,,,,,,,,,
+ROOT_CAUSE,Layer,Root Cause Identifier,Description,,,,,,,,,
+ROOT_CAUSE,Process,RCA-001,"No mandatory password rotation policy exists for database service accounts and privileged accounts at Bharat Mercantile Bank Limited. The existing password policy (POL-ISMS-040) covers user accounts only.",,,,,,,,,
+ROOT_CAUSE,Technology,RCA-002,"MFA enablement for DBA access was not included in the database hardening standard (STD-DB-012). The standard was last updated in 2021 and does not reference RBI guidelines on privileged access management.",,,,,,,,,
+ROOT_CAUSE,People,RCA-003,"Database administrators were not aware of the requirement to disable default accounts. No regular compliance verification mechanism existed for database baseline configurations.",,,,,,,,,
+,,,,,,,,,,,
+CORRECTIVE_ACTION,Action_ID,Action_Description,Owner,Target_Date,Status,Completion_Date,Evidence_Ref
+CORRECTIVE_ACTION,CA-001,Disable default sa account on all production SQL instances except where required for legacy application compatibility. For instances where sa is required, rename the account and apply a complex 25+ character password.,DBA Team Lead,31-Aug-2023,Completed,25-Aug-2023,DB-SEC-EVD-001
+CORRECTIVE_ACTION,CA-002,Deploy Azure AD Privileged Identity Management (PIM) for all DBA logins requiring MFA enforcement. Configure just-in-time (JIT) privileged access.,IAM Team Lead,30-Sep-2023,Completed,28-Sep-2023,DB-SEC-EVD-002
+CORRECTIVE_ACTION,CA-003,Implement mandatory 90-day password rotation policy for all database service accounts. Automate via CyberArk PAM.,Security Architect,30-Sep-2023,Completed,28-Sep-2023,DB-SEC-EVD-003
+CORRECTIVE_ACTION,CA-004,Update Database Hardening Standard (STD-DB-012) to include MFA requirement, default account disablement, and password rotation cadence.,InfoSec Policy Manager,30-Sep-2023,Completed,25-Sep-2023,DB-SEC-EVD-004
+CORRECTIVE_ACTION,CA-005,Conduct awareness training for all DBAs on privileged access management requirements and baseline configuration standards.,CISO,31-Oct-2023,Completed,20-Oct-2023,DB-SEC-EVD-005
+,,,,,,,,,,,
+TEST_OF_EFFECTIVENESS,Step_ID,Test_Performed,Tested_By,Result,Date,Evidence_Ref
+TEST_OF_EFFECTIVENESS,TOE-01,Verify sa account disabled or renamed on all 14 instances via SQL query.,Sr. IS Auditor - Priya Mehta,Pass - All 14 instances compliant,15-Oct-2023,DB-SEC-EVD-006
+TEST_OF_EFFECTIVENESS,TOE-02,Attempt DBA login using password only (no MFA) to validate Azure AD PIM MFA enforcement.,Sr. IS Auditor - Priya Mehta,Pass - MFA enforced for all DBA logins,15-Oct-2023,DB-SEC-EVD-007
+TEST_OF_EFFECTIVENESS,TOE-03,Verify password age for all DB service accounts is < 90 days via automated script.,Sr. IS Auditor - Priya Mehta,Pass - All accounts compliant with rotation policy,15-Oct-2023,DB-SEC-EVD-008
+TEST_OF_EFFECTIVENESS,TOE-04,Review updated STD-DB-012 for inclusion of MFA, default account, and password rotation requirements.,Sr. IS Auditor - Priya Mehta,Pass - All three requirements included in version 2.1,15-Oct-2023,DB-SEC-EVD-009
+TEST_OF_EFFECTIVENESS,TOE-05,Review DBA training attendance records and assessment scores.,Sr. IS Auditor - Priya Mehta,Pass - 18 DBAs trained, average score 92%,15-Oct-2023,DB-SEC-EVD-010
+,,,,,,,,,,,
+CLOSURE_DETAILS,Field,Value,,,,,,,,,
+CLOSURE_DETAILS,Reviewing Authority,Anil Sharma - Head IS Audit,,,,,,,,,
+CLOSURE_DETAILS,Approving Authority,Board Audit Committee (via resolution dated 20-Nov-2023),,,,,,,,,,
+CLOSURE_DETAILS,Closure Date,20-Nov-2023,,,,,,,,,
+CLOSURE_DETAILS,Residual Risk,Low - MFA and password rotation automated; default accounts deactivated,,,,,,,,,
+CLOSURE_DETAILS,Root Cause Closed?,"Yes - Policy POL-ISMS-042 (Service Account Password Policy) created. STD-DB-012 updated. Process for quarterly DB baseline audit established.",,,,,,,,,,
+CLOSURE_DETAILS,RCA Reference,DI-02-04-RCA-2023-001,,,,,,,,,
+CLOSURE_DETAILS,Remarks,"This observation is closed with all five corrective actions verified. The root cause has been addressed via policy and standard updates. Preventive controls (automated password rotation and MFA) are in place. No recurrence expected. Observation met all closure criteria per SOP DI-02-02.",,,,,,,,,,

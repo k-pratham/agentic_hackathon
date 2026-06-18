@@ -1,0 +1,205 @@
+import os
+import re
+from typing import List, Dict, Any
+from elasticsearch import Elasticsearch
+import oracledb
+from langchain_core.tools import tool
+import sys
+import os
+
+# Ensure src is in path to import ingestion.config
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from ingestion.config.settings import get_settings
+
+# --- Elasticsearch Helper ---
+def get_es_client() -> Elasticsearch:
+    settings = get_settings()
+    host = settings.elasticsearch.host
+    port = settings.elasticsearch.port
+    user = settings.elasticsearch.user
+    password = settings.elasticsearch.password
+    
+    if user and password:
+        return Elasticsearch(f"{host}:{port}", basic_auth=(user, password))
+    return Elasticsearch(f"{host}:{port}")
+
+# --- Oracle DB Helper ---
+def get_oracle_connection():
+    settings = get_settings()
+    host = settings.oracle.host
+    port = settings.oracle.port
+    service_name = settings.oracle.service_name
+    user = settings.oracle.user
+    password = settings.oracle.password
+    
+    dsn = oracledb.makedsn(host, port, service_name=service_name)
+    return oracledb.connect(user=user, password=password, dsn=dsn)
+
+# ==========================================
+# AGENT TOOLS
+# ==========================================
+
+@tool
+def check_knowledge_scope(query: str) -> str:
+    """
+    Check the internal policy guidelines to see if a query is allowed.
+    """
+    settings = get_settings()
+    return f"Scope Policy: {settings.agent.scope_policy}"
+
+@tool
+def data_discovery_tool(entity_name: str, department_id: int) -> str:
+    """
+    Search if a specific entity (like a bank name) exists in the database.
+    Use this to verify an entity's existence before routing.
+    """
+    settings = get_settings()
+    es = get_es_client()
+    index_name = settings.elasticsearch.index
+    try:
+        response = es.search(
+            index=index_name,
+            body={
+                "query": {
+                    "bool": {
+                        "must": [{"match": {"entity_name": entity_name}}],
+                        "filter": [{"term": {"dept_id": department_id}}]
+                    }
+                },
+                "size": 1
+            }
+        )
+        if response["hits"]["total"]["value"] > 0:
+            return f"Entity '{entity_name}' FOUND in the database."
+        return f"Entity '{entity_name}' NOT FOUND in this department."
+    except Exception as e:
+        return f"Error searching entity: {str(e)}"
+
+@tool
+def search_schema_index(query: str) -> str:
+    """
+    Search the structured data schema to find relevant tables or datasets.
+    Use this tool BEFORE writing a SQL query to understand the available data.
+    """
+    settings = get_settings()
+    es = get_es_client()
+    try:
+        response = es.search(
+            index=settings.agent.schema_index,
+            body={
+                "query": {
+                    "multi_match": {
+                        "query": query,
+                        "fields": ["dataset_name^2", "description", "sector", "dimensions"]
+                    }
+                },
+                "size": 5
+            }
+        )
+        
+        results = []
+        for hit in response["hits"]["hits"]:
+            src = hit["_source"]
+            results.append(f"- Dataset: {src.get('dataset_name')} (ID: {src.get('dataset_id')})\n  Desc: {src.get('description')}\n  Dimensions: {src.get('dimensions')}\n  Sector: {src.get('sector')}")
+            
+        return "Found Schema Matches:\n" + "\n".join(results) if results else "No schema found for query."
+    except Exception as e:
+        return f"Error searching schema index: {str(e)}"
+
+@tool
+def execute_oracle_sql(sql_query: str) -> str:
+    """
+    Execute a read-only SQL query against the Oracle Database.
+    Will reject any query that attempts to modify data.
+    """
+    dangerous_keywords = ['INSERT', 'UPDATE', 'DELETE', 'DROP', 'TRUNCATE', 'ALTER', 'GRANT', 'REVOKE', 'MERGE']
+    upper_query = sql_query.upper()
+    for word in dangerous_keywords:
+        if re.search(rf'\b{word}\b', upper_query):
+            return f"ERROR: Execution denied. Query contains forbidden modification keyword: {word}."
+            
+    try:
+        with get_oracle_connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(sql_query)
+                columns = [col[0] for col in cursor.description]
+                rows = cursor.fetchall()
+                
+                if not rows:
+                    return "Query executed successfully but returned 0 rows."
+                
+                import tabulate
+                limit = 50
+                output = tabulate.tabulate(rows[:limit], headers=columns, tablefmt="pipe")
+                if len(rows) > limit:
+                    output += f"\n\n...(Output truncated, {len(rows) - limit} more rows available)"
+                return output
+    except Exception as e:
+        return f"Oracle Execution Error: {str(e)}"
+
+@tool
+def search_regulatory_vectors(query: str, department_id: int) -> str:
+    """
+    Perform a semantic vector search across unstructured regulatory document text.
+    Strictly filters results to the specified department_id.
+    """
+    settings = get_settings()
+    es = get_es_client()
+    try:
+        response = es.search(
+            index=settings.elasticsearch.index,
+            body={
+                "query": {
+                    "bool": {
+                        "must": [{"match": {"text_content": query}}],
+                        "filter": [{"term": {"dept_id": department_id}}]
+                    }
+                },
+                "size": 3
+            }
+        )
+        results = []
+        for hit in response["hits"]["hits"]:
+            src = hit["_source"]
+            results.append(f"- Entity: {src.get('entity_name')} (Report Year: {src.get('report_year')})\n  Section: {src.get('section_index')}\n  Content: {src.get('text_content')}")
+        return "Found Unstructured Findings:\n" + "\n\n".join(results) if results else "No text findings found for your department."
+    except Exception as e:
+        return f"Error searching vector index: {str(e)}"
+
+@tool
+def python_data_tool(python_code: str, data_string: str) -> str:
+    """
+    Executes a pandas python script to analyze tabular data. 
+    The 'python_code' must expect a pandas dataframe named 'df'.
+    """
+    import pandas as pd
+    from io import StringIO
+    import contextlib
+    
+    try:
+        df = pd.read_csv(StringIO(data_string), sep='|', skipinitialspace=True).dropna(axis=1, how='all')
+        df.columns = df.columns.str.strip()
+        
+        stdout = StringIO()
+        with contextlib.redirect_stdout(stdout):
+            local_vars = {'df': df, 'pd': pd}
+            exec(python_code, globals(), local_vars)
+            
+        return stdout.getvalue() or "Code executed successfully but printed nothing."
+    except Exception as e:
+        return f"Python Execution Error: {str(e)}"
+
+@tool
+def chart_config_tool(chart_type: str, x_axis: str, y_axis: str, title: str) -> str:
+    """
+    Outputs a structured JSON configuration for the Streamlit UI to render a chart.
+    """
+    import json
+    config = {
+        "action": "RENDER_CHART",
+        "chart_type": chart_type,
+        "x_axis": x_axis,
+        "y_axis": y_axis,
+        "title": title
+    }
+    return json.dumps(config)

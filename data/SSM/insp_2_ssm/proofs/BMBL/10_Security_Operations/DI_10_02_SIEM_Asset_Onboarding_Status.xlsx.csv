@@ -1,0 +1,42 @@
+Asset ID,Asset Name,Asset Type,Department,Criticality,SIEM Onboarding Status,Onboarding Date,Log Sources Configured,Last Heartbeat,Remarks
+CRIT-001,Core Banking System - Production,CBS Server,IT Operations,Critical,Onboarded,12-Jan-2026,22,15-Jun-2026,All logs flowing
+CRIT-002,Internet Banking Server - Prod,Web Server,Digital Banking,Critical,Onboarded,05-Feb-2026,15,15-Jun-2026,Rate limiting configured
+CRIT-003,Mobile Banking App Server,Application Server,Digital Banking,Critical,Onboarded,18-Feb-2026,18,15-Jun-2026,
+CRIT-004,Payment Switch System,Network Appliance,Payments,Critical,Onboarded,22-Mar-2026,12,15-Jun-2026,
+CRIT-005,UPI Switch Server,Application Server,Payments,Critical,Onboarded,10-Mar-2026,10,15-Jun-2026,
+CRIT-006,ATM Switch Server,Application Server,ATM Operations,Critical,Onboarded,01-Apr-2026,8,15-Jun-2026,
+CRIT-007,Primary Database Server - Prod,Database,IT Operations,Critical,Onboarded,15-Jan-2026,20,15-Jun-2026,
+CRIT-008,Secondary Database Server - DR,Database,IT Operations,Critical,Onboarded,15-Jan-2026,20,15-Jun-2026,
+CRIT-009,Active Directory Domain Controller - 1,Infrastructure,IT Operations,Critical,Onboarded,20-Feb-2026,16,15-Jun-2026,
+CRIT-010,Active Directory Domain Controller - 2,Infrastructure,IT Operations,Critical,Pending,-,-,-,Scheduled for 30-Jun-2026
+CRIT-011,Email Gateway Server,Infrastructure,IT Operations,Critical,Onboarded,05-Mar-2026,8,15-Jun-2026,
+CRIT-012,Network Firewall - Primary,Network,IT Operations,Critical,Onboarded,10-Jan-2026,14,15-Jun-2026,
+CRIT-013,Network Firewall - Secondary,Network,IT Operations,Critical,Onboarded,10-Jan-2026,14,15-Jun-2026,
+CRIT-014,Load Balancer - Production,Network,IT Operations,Critical,Onboarded,25-Feb-2026,6,15-Jun-2026,
+CRIT-015,SWIFT Gateway Server,Application Server,Treasury,Critical,Pending,-,-,-,Vendor coordination in progress
+CRIT-016,RTGS/NEFT Gateway,Application Server,Payments,Critical,Pending,-,-,-,Scheduled for 05-Jul-2026
+CRIT-017,Card Management System,Application Server,Card Operations,Critical,Onboarded,10-Apr-2026,9,15-Jun-2026,
+CRIT-018,Anti-Money Laundering System,Application Server,Compliance,Critical,Onboarded,15-Apr-2026,11,15-Jun-2026,
+CRIT-019,Data Loss Prevention - Central,Infrastructure,IT Operations,Critical,Pending,-,-,-,Scheduled for 10-Jul-2026
+CRIT-020,VPN Gateway Server,Infrastructure,IT Operations,Critical,Pending,-,-,-,Awaiting hardware upgrade
+CRIT-021,Trading Application Server,Application Server,Treasury,Critical,Onboarded,20-Apr-2026,7,15-Jun-2026,
+CRIT-022,Loan Origination System,Application Server,Retail Banking,Critical,Onboarded,25-Apr-2026,10,15-Jun-2026,
+CRIT-023,CRM System,Application Server,Retail Banking,Critical,Onboarded,01-May-2026,8,15-Jun-2026,
+CRIT-024,HRMS Application,Application Server,HR,Critical,Pending,-,-,-,Scheduled for 12-Jun-2026 Postponed
+CRIT-025,BI Reporting Server,Application Server,Analytics,Critical,Onboarded,05-May-2026,6,15-Jun-2026,
+CRIT-026,Document Management System,Application Server,Operations,Critical,Onboarded,10-May-2026,5,15-Jun-2026,
+CRIT-027,Video Surveillance System,Infrastructure,Security,Critical,Onboarded,15-May-2026,4,15-Jun-2026,
+CRIT-028,Email Archival Server,Infrastructure,IT Operations,Critical,Pending,-,-,-,Awaiting procurement
+CRIT-029,SIEM Management Console,Infrastructure,Security,Critical,Onboarded,01-Jan-2026,12,15-Jun-2026,
+CRIT-030,SOC Ticketing System,Infrastructure,Security,Critical,Onboarded,01-Jan-2026,6,15-Jun-2026,
+
+SUMMARY,,,,,,,,
+Total Critical Assets,,,,,,30,,
+Onboarded,,,,,,21,,
+Pending,,,,,,9,,
+Onboarding Percentage,,,,,,70%,,
+Target Onboarding Percentage,,,,,,100%,,
+Gap,,,,,,30%,,
+Action Plan,,,,,,,,
+Complete remaining 9 assets by 31-Jul-2026,,,,,,,,
+Weekly progress review with CISO,,,,,,,,

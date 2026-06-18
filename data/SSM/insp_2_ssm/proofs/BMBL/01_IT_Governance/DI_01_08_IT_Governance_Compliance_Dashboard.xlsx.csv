@@ -1,0 +1,113 @@
+Document Reference,DI_01_08,Version,1.2,Effective Date,01-Jul-2024
+Bank Name,Bharat Mercantile Bank Limited,Department,IT Governance Cell,Owner,Company Secretary
+,,,,,,
+"IT GOVERNANCE COMPLIANCE DASHBOARD - QUARTERLY REPORT (Q2 FY 2024-25)",,,,,,
+Report Date,15-Jul-2024,Reporting Period,01-Apr-2024 to 30-Jun-2024,Prepared By,IT Governance Cell
+,,,,,,
+,,,,,,
+"SECTION 1: BOARD-LEVEL IT COMMITTEE COMPLIANCE (RBI 3.1.1 & 3.1.2)",,,,,,
+,,,,,,
+Compliance Parameter,Regulatory Requirement,Target,Current Status (Q2),YTD Status,Gap Identified,Remediation Plan,Target Closure Date
+IT Strategy Committee – Meeting Frequency,Minimum 4 meetings per financial year (quarterly),4 per FY,2 meetings held (Q1 + Q2),3 meetings held (Q1 as on 15-Jul-2024),GAP: Only 3 meetings against required 4 by end of Q2 (Q2 meeting adjourned & reconvened counted as 1),Annual calendar enforced; mandatory attendance policy,31-Mar-2025
+IT Strategy Committee – IT/Cyber Expertise,At least 1 member with substantial IT/cyber expertise,100%,Partially Compliant,Partially Compliant,GAP: Mr. Suresh P. Iyer (member) has no declared IT/cyber expertise,Board to consider upskilling or replacement,30-Sep-2024
+IT Strategy Committee – Member Expertise Declaration,100% members to file annual declaration,100%,60% (3 of 5 filed),60%,GAP: 2 members yet to file FY 2024-25 declaration (Patel & Iyer),Reminder issued; escalation to Chairman,31-Jul-2024
+IT Strategy Committee – Quorum Compliance,100% of meetings,100%,100% (after adjournment),100%,None (1 meeting adjourned due to quorum; reconvened with quorum),Quorum early warning system to be implemented,30-Sep-2024
+IT Strategy Committee – Minutes Circulation,Within 5 working days of meeting,100%,100%,100%,None,Continue current practice, -
+IT Strategy Committee – Report to Board,Within 7 days of meeting,100%,100%,100%,None,Continue current practice, -
+,,,,,,
+,,,,,,
+"SECTION 2: IT STEERING COMMITTEE COMPLIANCE",,,,,,
+,,,,,,
+Compliance Parameter,Regulatory Requirement,Target,Current Status (Q2),YTD Status,Gap Identified,Remediation Plan,Target Closure Date
+ITSC – Meeting Frequency,Monthly,12 per FY,3 meetings held,3 meetings held,None,On track, -
+ITSC – Project Risk Tracking,All material projects to maintain risk register with RAG scoring,100%,90% (9 of 10 projects),90%,GAP: Data Lake project risk register not updated for June 2024,PMO to follow up with project manager,31-Jul-2024
+ITSC – Budget Variance Reporting,Monthly budget variance for all material projects,100%,100%,100%,None,Continue current practice, -
+ITSC – Benefit Realisation Tracking,Quarterly benefit realisation review for all material projects,100%,70% (7 of 10 projects),70%,GAP: 3 projects in initiation phase (LOS v2.0, API Gateway, Customer Onboarding) have not submitted benefit realisation baselines,PMO to ensure benefit realisation plan is submitted at project kick-off,30-Sep-2024
+ITSC – Minutes with Risk & Budget Details,Minutes must consistently track project risk, budget variance & benefit realisation,100%,100% for agenda items,100%,GAP (Observed): Q1 and Q2 minutes reviewed – project-level risk, budget variance and benefit realisation were covered but benefit realisation depth was insufficient,Enhanced SOP (BMBL/ITGC/SOP/ITSC/003) enforced from Q3,13-Nov-2024
+ITSC – Action Item Closure Rate,90% closure within target date,90%,85%,85%,GAP: 3 of 20 action items overdue,Weekly action item review by PMO,31-Jul-2024
+,,,,,,
+,,,,,,
+"SECTION 3: DIGITAL PAYMENT SECURITY CONTROLS COMPLIANCE",,,,,,
+,,,,,,
+Compliance Parameter,Regulatory Requirement,Target,Current Status (Q2),YTD Status,Gap Identified,Remediation Plan,Target Closure Date
+DPSC Policy – Lifecycle Definition,Policy must include mechanics, starting point, intermittent stages, end point of digital payment cycle,100%,0% (Old policy v2.0 did not meet requirement),0%,GAP: Digital Payment Security Controls Policy v2.0 did not include lifecycle definition, starting point, intermittent stages, end point, validations & exception handling for each product,New policy v3.0 drafted and submitted to ITSC; approval pending,01-Jul-2024 (policy effective date)
+DPSC Policy – Product-wise Validation Matrix,Each digital payment product must have defined validations at each lifecycle stage,100%,0%,0%,GAP: Missing in v2.0,"Included in v3.0 (UPI, IMPS, NEFT, RTGS, Card, BBPS, Net Banking, Fastag, Corporate Gateway)",01-Jul-2024
+DPSC Policy – Exception Handling Protocol,Each product must have defined exception handling for each stage,100%,0%,0%,GAP: Missing in v2.0,Included in v3.0,01-Jul-2024
+DPSC Policy – Approval Status,Policy must be approved by IT Strategy Committee / Board,100%,Pending,0%,GAP: v3.0 awaiting ITSC approval,Submitted for ITSC Q3 meeting (13-Nov-2024),13-Nov-2024
+Digital Payment Products – Control Gap Assessment,Annual gap assessment for all products,100%,0%,0%,GAP: Q2 assessment not conducted; pending policy approval,Schedule assessment post policy approval,31-Dec-2024
+DPSC – Compliance to New Policy (once approved),100% products compliant,100%,0%,0%,GAP: Policy not yet effective,Post-approval: 90-day implementation period for products,31-Mar-2025
+,,,,,,
+,,,,,,
+"SECTION 4: RBI MASTER DIRECTION - OVERALL COMPLIANCE STATUS",,,,,,
+,,,,,,
+RBI Master Direction Section,Requirement,Compliance Status (Y/P/N),Remarks,Target Date
+Section 3.1(a) – Board-level IT Committee (ITSC) – Quarterly meetings,Partially Compliant (P),3 meetings held against 4 quarterly cadence,31-Mar-2025
+Section 3.1(c) – ITSC member with IT/cyber expertise,Partially Compliant (P),1 member lacks expertise,30-Sep-2024
+Section 3.2 – IT Steering Committee – Project governance,Partially Compliant (P),Benefit realisation tracking depth needs improvement,13-Nov-2024
+Section 3.3 – IT Strategy & Planning,Compliant (Y),IT strategy document approved, -
+Section 3.4 – IT Budget & Expenditure,Compliant (Y),Budget process compliant, -
+Section 4.1 – Information Security Policy,Compliant (Y),Policy in place and reviewed, -
+Section 4.2 – Cyber Resilience Framework,Partially Compliant (P),SOC tool implementation in progress,31-Dec-2024
+Section 5.1 – Digital Payment Security Controls,Non-Compliant (N),Policy v2.0 did not include lifecycle definition; v3.0 pending approval,31-Mar-2025
+Section 5.2 – Business Continuity & DR,Compliant (Y),BCP tested in Q1; DR drill scheduled Q3, -
+Section 6.1 – IT Audit & Assurance,Compliant (Y),ITGC audit completed; 15 observations open, -
+Section 7.1 – IT Reporting to Board,Compliant (Y),Quarterly reporting as per regulatory requirement, -
+,,,,,,
+,,,,,,
+"SECTION 5: OBSERVATION-WISE TRACKING",,,,,,
+,,,,,,
+Observation ID,RBI Domain Reference,Observation Description,Severity,Current Status,Owner,Target Date,Progress (%)
+OBS-01,3.1.1,"IT Strategy Committee met thrice during the year against prescribed quarterly cadence",Moderate,Open - Remediation in Progress,Company Secretary,31-Mar-2025,25%
+OBS-02,3.1.1,"One ITSC member does not possess substantial IT/cyber expertise",High,Open - Board Notification Pending,Company Secretary,30-Sep-2024,10%
+OBS-03,3.1.2,"ITSC minutes did not consistently track project-level risk, budget variance and benefit realisation",Moderate,Open - SOP Revised; Compliance to be Demonstrated,CIO / PMO Lead,13-Nov-2024,60%
+OBS-04,3.1.3,"DPSC Policy did not include lifecycle definition, starting point, intermittent stages, end point, validations & exception handling",High,Open - Policy v3.0 Drafted; Pending ITSC Approval,CISO / Head - Digital Banking,31-Mar-2025,40%
+,,,,,,
+,,,,,,
+"SECTION 6: ACTION ITEM SUMMARY",,,,,,
+,,,,,,
+Total Open Actions,Overdue Actions,Closing Within 30 Days,Closed This Quarter,Actions on Track,Actions at Risk
+15,3,5,8,10,2
+,,,,,,
+,,,,,,
+"SECTION 7: KEY PERFORMANCE INDICATORS (KPI)",,,,,,
+,,,,,,
+KPI Category,KPI Name,Target,Q1 FY 2024-25,Q2 FY 2024-25,Trend,Status
+Governance,ITSC meeting attendance rate (%),>= 80%,100%,80%,Declining,Amber
+Governance,Member expertise coverage (%),>= 80%,80%,80%,Stable,Amber
+Governance,ITSC minutes circulation within 5 days (%),100%,100%,100%,Stable,Green
+Governance,Board reporting within 7 days (%),100%,100%,100%,Stable,Green
+Project,Projects with risk register (%),100%,100%,90%,Declining,Amber
+Project,Projects with benefit tracking (%),100%,70%,70%,Stable,Amber
+Project,Budget variance within tolerance (%),>= 80%,100%,90%,Declining,Green
+Project,Action item closure rate (%),>= 90%,88%,85%,Declining,Amber
+Security,DPSC policy compliance (%),100%,0%,0%,Stable,Red
+Security,SOC implementation progress (%),100%,35%,55%,Improving,Amber
+Security,Vulnerability remediation within 30 days (%),>= 95%,93%,91.5%,Declining,Amber
+,,,,,,
+,,,,,,
+"SECTION 8: ESG / GOVERNANCE METRICS",,,,,,
+,,,,,,
+Metric,Value,Unit,Reporting Period
+Number of IT governance policies reviewed,3,Count,Q2 2024-25
+Number of IT governance policies with gaps,2,Count,Q2 2024-25
+Number of ITSC member training hours on IT governance,4,Average hours per member,Q2 2024-25
+IT expenditure as % of operating income,12.5,%,Q2 2024-25
+Number of material IT projects,10,Count,Q2 2024-25
+IT projects with post-implementation review completed,2,Count,Q2 2024-25
+Regulatory reporting compliance rate (IT-related),100,%,Q2 2024-25
+,,,,,,
+,,,,,,
+"SECTION 9: COMPLIANCE TREND (LAST 4 QUARTERS)",,,,,,
+,,,,,,
+Parameter,Q1 FY 2023-24,Q2 FY 2023-24,Q3 FY 2023-24,Q4 FY 2023-24,Q1 FY 2024-25,Q2 FY 2024-25
+ITSC meetings held,1,1,1,1,1,2 (adjourned + reconvened)
+ITSC meetings with full quorum,1,1,1,1,1,1 (Q2A no quorum)
+Members with declared IT/cyber expertise,3,3,3,3,3,3
+Project risk tracking compliance (%),85%,88%,90%,92%,95%,90%
+Budget variance reporting compliance (%),90%,92%,95%,98%,100%,100%
+Benefit realisation tracking compliance (%),60%,55%,60%,65%,70%,70%
+DPSC policy approved,Y,Y,Y,Y,Y,N (v3.0 pending)
+IT audit observations (open),22,20,18,15,18,15
+,,,,,,
+,,,,,,
+"PREPARED BY: IT Governance Cell","APPROVED BY: Company Secretary","REVIEWED BY: CIO","DATE: 15-Jul-2024","NEXT REVIEW: 15-Oct-2024",,,

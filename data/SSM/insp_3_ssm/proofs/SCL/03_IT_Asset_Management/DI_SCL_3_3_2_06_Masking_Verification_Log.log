@@ -1,0 +1,26 @@
+﻿[2026-06-18 15:13:09] [INFO] Saptarishi Capital Limited - Audit Log for 3.3.2
+[2026-06-18 15:13:09] [INFO] Description: Data masking verification log with field-level confirmation
+[2026-06-18 15:13:09] [INFO] Bank: Saptarishi Capital Limited
+[2026-06-18 15:13:09] [INFO] Observation: 3.3.2
+[2026-06-18 15:13:09] [INFO] Log session started
+[2026-06-18 15:13:09] [INFO] Audit check #1 - ref: AUD-7485
+[2026-06-18 15:13:09] [INFO] Audit check #2 - ref: AUD-3457
+[2026-06-18 15:13:09] [INFO] Audit check #3 - ref: AUD-6898
+[2026-06-18 15:13:09] [INFO] Audit check #4 - ref: AUD-9957
+[2026-06-18 15:13:09] [INFO] Audit check #5 - ref: AUD-4425
+[2026-06-18 15:13:09] [INFO] Audit check #6 - ref: AUD-2555
+[2026-06-18 15:13:09] [INFO] Audit check #7 - ref: AUD-8383
+[2026-06-18 15:13:09] [INFO] Audit check #8 - ref: AUD-9986
+[2026-06-18 15:13:09] [INFO] Audit check #9 - ref: AUD-5183
+[2026-06-18 15:13:09] [INFO] Audit check #10 - ref: AUD-9601
+[2026-06-18 15:13:09] [INFO] Audit check #11 - ref: AUD-6014
+[2026-06-18 15:13:09] [INFO] Audit check #12 - ref: AUD-4799
+[2026-06-18 15:13:09] [INFO] Audit check #13 - ref: AUD-1660
+[2026-06-18 15:13:09] [INFO] Audit check #14 - ref: AUD-7232
+[2026-06-18 15:13:09] [INFO] Audit check #15 - ref: AUD-4969
+[2026-06-18 15:13:09] [INFO] Audit check #16 - ref: AUD-4026
+[2026-06-18 15:13:09] [INFO] Audit check #17 - ref: AUD-9957
+[2026-06-18 15:13:09] [INFO] Audit check #18 - ref: AUD-6881
+[2026-06-18 15:13:09] [INFO] Audit check #19 - ref: AUD-5581
+[2026-06-18 15:13:09] [INFO] Audit check #20 - ref: AUD-6352
+[2026-06-18 15:13:09] [INFO] Log session completed

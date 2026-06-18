@@ -1,0 +1,39 @@
+Alert ID,Alert Title,Source Tool,Severity,Category,Date Generated,Age (Days),Assigned To,Status,Last Updated,Remarks
+EDR-2026-001,Suspicious PowerShell Execution,XDR,Critical,Malware,01-Jun-2026,14,L2 Analyst - Rajesh,Open,15-Jun-2026,Requires forensic analysis
+EDR-2026-002,Mass File Encryption Detected,EDR,Critical,Ransomware,02-Jun-2026,13,L3 Analyst - Priya,In Progress,15-Jun-2026,Containment initiated
+EDR-2026-003,Admin Privilege Escalation,EDR,High,Privilege Abuse,03-Jun-2026,12,L2 Analyst - Amit,Open,15-Jun-2026,User account under review
+EDR-2026-004,Anomalous Outbound Data Transfer,XDR,High,Data Exfiltration,04-Jun-2026,11,L2 Analyst - Sneha,Open,15-Jun-2026,Network logs pending analysis
+EDR-2026-005,Unauthorized Registry Modification,EDR,Medium,System Tampering,05-Jun-2026,10,L1 Analyst - Vikram,Open,15-Jun-2026,Baseline comparison pending
+EDR-2026-006,Multiple Failed Logins - Admin Account,XDR,High,Brule Force,06-Jun-2026,9,L2 Analyst - Rajesh,Open,15-Jun-2026,Source IP geolocation in progress
+EDR-2026-007,Scheduled Task Created on DC,EDR,Critical,Persistence,06-Jun-2026,9,L3 Analyst - Priya,Open,15-Jun-2026,Authority verification needed
+EDR-2026-008,Suspicious DLL Injection,XDR,Critical,Malware,07-Jun-2026,8,L3 Analyst - Arjun,Open,15-Jun-2026,Sandbox analysis queued
+EDR-2026-009,USB Device Mounted - Non-Compliant,EDR,Medium,Data Leakage,08-Jun-2026,7,L1 Analyst - Neha,Open,15-Jun-2026,User notified
+EDR-2026-010,WMI Persistence Detected,XDR,High,Lateral Movement,08-Jun-2026,7,L2 Analyst - Amit,Open,15-Jun-2026,Endpoint isolation suggested
+EDR-2026-011,Firewall Rule Modification by Non-Admin,XDR,Critical,Policy Violation,09-Jun-2026,6,L2 Analyst - Sneha,In Progress,15-Jun-2026,Change request verification
+EDR-2026-012,Suspicious LSASS Access,EDR,High,Credential Theft,09-Jun-2026,6,L2 Analyst - Rajesh,Open,15-Jun-2026,Mimikatz detection flagged
+EDR-2026-013,Abnormal CPU Usage - Crypto Mining,XDR,Medium,Resource Abuse,10-Jun-2026,5,L1 Analyst - Vikram,Open,15-Jun-2026,Process investigation pending
+EDR-2026-014,New Service Installed - Unauthorized,EDR,High,Persistence,10-Jun-2026,5,L2 Analyst - Amit,Open,15-Jun-2026,Services audit pending
+EDR-2026-015,Connection to Known Malicious IP,XDR,High,C2 Communication,11-Jun-2026,4,L2 Analyst - Sneha,In Progress,15-Jun-2026,Outbound blocked at firewall
+EDR-2026-016,Shadow Copy Deletion Detected,EDR,Critical,Ransomware,11-Jun-2026,4,L3 Analyst - Arjun,Open,15-Jun-2026,Backup verification initiated
+EDR-2026-017,Suspicious Email Attachment Opened,XDR,Medium,Phishing,12-Jun-2026,3,L1 Analyst - Neha,Closed,15-Jun-2026,User training recommended
+EDR-2026-018,Unquoted Service Path Vulnerability,EDR,Low,Configuration Issue,12-Jun-2026,3,L1 Analyst - Vikram,Open,15-Jun-2026,Remediation scheduled
+EDR-2026-019,Pass-the-Hash Attack Detected,XDR,Critical,Lateral Movement,13-Jun-2026,2,L3 Analyst - Priya,In Progress,15-Jun-2026,Extended investigation active
+EDR-2026-020,BitLocker Disabled on Endpoint,EDR,Medium,Policy Violation,13-Jun-2026,2,L1 Analyst - Neha,Open,15-Jun-2026,Compliance team notified
+EDR-2026-021,Unusual DNS Query Pattern,XDR,Medium,Data Exfiltration,14-Jun-2026,1,L1 Analyst - Vikram,Open,15-Jun-2026,DNS log analysis pending
+EDR-2026-022,Print Spooler Vulnerability Exploit,EDR,High,Remote Code Execution,14-Jun-2026,1,L2 Analyst - Rajesh,Open,15-Jun-2026,Patch verification in progress
+EDR-2026-023,New Local Admin Account Created,EDR,High,Privilege Escalation,15-Jun-2026,0,L2 Analyst - Amit,Open,15-Jun-2026,Account creation audit pending
+EDR-2026-024,Suspicious Scheduled Task Deletion,XDR,Medium,Defense Evasion,15-Jun-2026,0,L1 Analyst - Neha,Open,15-Jun-2026,Correlation with other alerts
+
+BACKLOG SUMMARY,,,,,,,,,,
+Total Open Alerts,,,,,,,,23,,
+Age > 7 days,,,,,,,,9,,
+Age 4-7 days,,,,,,,,6,,
+Age < 4 days,,,,,,,,8,,
+Critical Open,,,,,,,,7,,
+High Open,,,,,,,,9,,
+Medium Open,,,,,,,,6,,
+Low Open,,,,,,,,1,,
+Action Plan,,,,,,,,,,
+Assign additional L2/L3 resources to clear backlog > 7 days,,,,,,,,,,
+Implement auto-escalation for alerts exceeding 24 hours,,,,,,,,,,
+Conduct weekly backlog review with SOC Manager,,,,,,,,,,

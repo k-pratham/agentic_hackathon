@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AuditEvidence>
+  <Header>
+    <BankName>Himgiri Local Area Bank Limited</BankName>
+    <BankCode>HLAB</BankCode>
+    <ObservationID>3.4.1</ObservationID>
+    <DocumentType>XML configuration for automated backup scheduling and monitoring</DocumentType>
+    <CreatedDate>18-06-2026</CreatedDate>
+    <Version>1.0.0</Version>
+    <Classification>Confidential</Classification>
+  </Header>
+  <Controls>
+    <Control id="CTRL-001">
+      <Name>Primary Control</Name>
+      <Description>XML configuration for automated backup scheduling and monitoring</Description>
+      <Status>Active</Status>
+      <ImplementedDate>18-06-2026</ImplementedDate>
+      <Owner>IT Security Team</Owner>
+    </Control>
+    <Control id="CTRL-002">
+      <Name>Monitoring Control</Name>
+      <Description>Periodic compliance verification</Description>
+      <Status>Active</Status>
+      <ImplementedDate>18-06-2026</ImplementedDate>
+      <Owner>IT Audit Team</Owner>
+    </Control>
+  </Controls>
+  <ComplianceSummary>
+    <OverallStatus>Complied</OverallStatus>
+    <LastAuditDate>18-06-2026</LastAuditDate>
+    <NextAuditDate>18-09-2026</NextAuditDate>
+    <Findings>No material findings</Findings>
+  </ComplianceSummary>
+  <AuditHistory>
+    <Entry>
+      <Date>18-06-2026</Date>
+      <Action>Initial documentation</Action>
+      <PerformedBy>IT Governance Team</PerformedBy>
+      <Remarks>3.4.1 compliance evidence recorded</Remarks>
+    </Entry>
+  </AuditHistory>
+</AuditEvidence>

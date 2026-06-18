@@ -1,0 +1,32 @@
+﻿{
+  "metadata": {
+    "bankName": "Saptarishi Capital Limited",
+    "bankCode": "SCL",
+    "observationId": "3.7.1",
+    "documentType": "JSON export of PAM system configuration",
+    "createdDate": "18-06-2026",
+    "version": "1.0.0",
+    "classification": "Confidential"
+  },
+  "controls": {
+    "enabled": true,
+    "complianceStatus": "Complied",
+    "lastReviewDate": "18-06-2026",
+    "nextReviewDate": "18-09-2026",
+    "reviewFrequency": "Quarterly"
+  },
+  "auditTrail": [
+    {
+      "action": "Created",
+      "timestamp": "2026-06-18T15:13:09",
+      "user": "IT Audit & Compliance Team",
+      "details": "JSON export of PAM system configuration - 3.7.1"
+    }
+  ],
+  "evidence": {
+    "description": "JSON export of PAM system configuration",
+    "location": "\\internal\audit\SCL\3_7_1",
+    "retentionPeriod": "5 years",
+    "format": "JSON"
+  }
+}

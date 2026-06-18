@@ -1,0 +1,36 @@
+# Bharat Mercantile Bank Limited – Patch Inventory Register
+# Reference: DI-07-02 | Version: 2.0 | Report Date: 01-Jun-2026
+# Observation Reference: OBS-12 / 3.7.1 – Third-party apps and middleware not tracked under patch management
+
+Category,Software Name,Vendor,Version Installed,Latest Available Version,Patch Status,CVEs Addressed,Severity,Installation Date,Next Scheduled Patch,Responsible Team,Support Status,End of Life Date,Remarks
+Operating System,Microsoft Windows Server 2022,Microsoft,10.0.20348.2529,10.0.20348.2762,Update Available,KB5022842 / CVE-2026-1234,Critical,12-May-2026,11-Jun-2026 (Patch Tuesday),Server Administration,Supported,–,
+Operating System,Microsoft Windows Server 2019,Microsoft,10.0.17763.5696,10.0.17763.5820,Update Available,KB5022843 / CVE-2026-1235,High,12-May-2026,11-Jun-2026 (Patch Tuesday),Server Administration,Supported,–,
+Operating System,Red Hat Enterprise Linux 8.10,Red Hat,8.10,8.11,Update Available,RHSA-2026:1234,High,25-May-2026,25-Jun-2026,Linux Administration,Supported,–,
+Operating System,Red Hat Enterprise Linux 9.4,Red Hat,9.4,9.6,Update Available,RHSA-2026:5678,Critical,20-May-2026,20-Jun-2026,Linux Administration,Supported,–,
+Operating System,Ubuntu 22.04 LTS,Canonical,22.04.5,22.04.6,Update Available,USN-6789-1,Medium,15-May-2026,15-Jun-2026,Linux Administration,Supported,–,
+Operating System,IBM AIX 7.3,IBM,7.3.3,7.3.4,Update Available,IJ12345,High,10-Apr-2026,10-Jul-2026 (Quarterly),Unix Administration,Supported,–,
+Third-Party App,Adobe Acrobat Reader DC,Adobe,24.08.20126,24.09.30215,Update Available,APSB26-123,Critical,12-May-2026,09-Jun-2026,Endpoint Management,Supported,–,"Used by 2500+ employees"
+Third-Party App,Microsoft Office 365,Microsoft,Version 2405,Version 2406,Update Available,CVE-2026-4567,High,12-May-2026,11-Jun-2026,Endpoint Management,Supported,–,"Enterprise-wide deployment"
+Third-Party App,Microsoft Office 2021,Microsoft,Build 2108,Build 2110,Update Available,CVE-2026-7890,Medium,12-May-2026,11-Jun-2026,Endpoint Management,Supported,–,"Legacy deployment – 500 users"
+Third-Party App,7-Zip,Igor Pavlov,24.08,24.09,Update Available,CVE-2026-1112,High,10-Apr-2026,15-Jun-2026,Endpoint Management,Supported,–,"Used across all endpoints"
+Third-Party App,Google Chrome,Google,125.0.6422.142,126.0.6478.56,Update Available,CVE-2026-3333,Critical,15-May-2026,01-Jun-2026,Endpoint Management,Supported,–,"Automatic updates enabled"
+Third-Party App,Mozilla Firefox ESR,Mozilla,115.12.0,115.13.0,Update Available,CVE-2026-4444,High,12-May-2026,09-Jun-2026,Endpoint Management,Supported,–,
+Third-Party App,WinSCP,Martin Prikryl,6.3.3,6.3.5,Update Available,CVE-2026-5555,Medium,01-Apr-2026,01-Jul-2026,Endpoint Management,Supported,–,
+Third-Party App,Putty,Simon Tatham,0.81,0.82,Update Available,CVE-2026-6666,High,05-May-2026,05-Jun-2026,Endpoint Management,Supported,–,
+Third-Party App,Notepad++,Don Ho,8.6.9,8.7.0,Update Available,–,Low,01-May-2026,01-Aug-2026,Endpoint Management,Supported,–,
+Middleware,Microsoft IIS (Windows Server),Microsoft,10.0.20348.2529,10.0.20348.2762,Update Available,KB5022844 / CVE-2026-7777,High,12-May-2026,11-Jun-2026,Server Administration,Supported,–,"Hosts Internet Banking, Corporate Banking"
+Middleware,Apache Tomcat,Apache Foundation,9.0.95,9.0.98,Update Available,CVE-2026-8888,Critical,15-Mar-2026,15-Jun-2026,Server Administration,Supported,–,"Hosts Payment Gateway API, UPI Gateway"
+Middleware,JBoss EAP / WildFly,Red Hat,27.0.1,27.0.2,Update Available,RHSA-2026:9999,High,15-Feb-2026,15-Jun-2026,Server Administration,Supported,–,"Hosts Core Banking middleware"
+Middleware,IBM WebSphere,IBM,9.0.5.11,9.0.5.14,Update Available,IJ67890,Medium,20-Jan-2026,20-Jul-2026,Server Administration,Supported,–,"Hosts Treasury Management System"
+Middleware,Nginx,Nginx Inc.,1.26.2,1.27.0,Update Available,–,Low,10-May-2026,10-Aug-2026,Server Administration,Supported,–,"Reverse proxy for APIs"
+Database,Microsoft SQL Server 2022,Microsoft,16.0.4125.3,16.0.4160.4,Update Available,KB5022845 / CVE-2026-1010,High,12-May-2026,11-Jun-2026,DBA Team,Supported,–,
+Database,Oracle Database 19c,Oracle,19.22.0.0.0,19.24.0.0.0,Update Available,Oracle CPU Apr 2026,Critical,15-Apr-2026,15-Jul-2026 (Quarterly),DBA Team,Supported,–,"Internet Banking DB"
+Database,PostgreSQL 14,PostgreSQL Global Development Group,14.12,14.13,Update Available,CVE-2026-1111,Medium,10-May-2026,10-Jun-2026,DBA Team,Supported,–,"Mobile Banking DB"
+Database,MySQL 8.0,Oracle,8.0.36,8.0.38,Update Available,CVE-2026-1212,High,05-May-2026,05-Jul-2026,DBA Team,Supported,–,"LOS Database"
+Database,IBM Db2 12,IBM,12.1.0.8,12.1.0.9,Update Available,IJ99999,High,15-Apr-2026,15-Jul-2026 (Quarterly),DBA Team,Supported,–,"CBS Database"
+Security Tool,Qualys Vulnerability Management,Qualys,5.8.0.1,5.9.0.0,Update Available,–,Medium,01-Jun-2026,01-Jul-2026,Security Team,Supported,–,
+Security Tool,CrowdStrike Falcon,CS,7.14.0,7.15.0,Update Available,–,Critical,15-May-2026,15-Jun-2026,Security Team,Supported,–,
+Security Tool,Symantec Endpoint Protection,Broadcom,14.3.9272,14.3.9350,Update Available,–,High,10-May-2026,10-Jun-2026,Security Team,Supported,–,
+End-of-Life,Windows Server 2012 R2,Microsoft,6.3.9600,–,End of Life (EOL),–,Critical,–,–,Server Administration,EOL – Extended Security Updates only,10-Oct-2026,"Plan to upgrade by Sep-2026"
+End-of-Life,CentOS 7,Red Hat,7.9,–,End of Life (EOL),–,Critical,–,–,Linux Administration,EOL,30-Jun-2024,"Migration to RHEL 9 in progress"
+End-of-Life,Oracle Database 12c,Oracle,12.2.0.1,–,End of Life (EOL),–,Critical,–,–,DBA Team,EOL,31-Jul-2022,"Upgrade to 19c planned by Aug-2026"

@@ -1,0 +1,50 @@
+Document Reference,DI_01_02,Version,1.0,Effective Date,01-Apr-2024
+Bank Name,Bharat Mercantile Bank Limited,Department,IT Governance Cell,Owner,Company Secretary
+,,,,,,
+"IT STRATEGY COMMITTEE - ANNUAL MEETING CALENDAR FY 2024-25",,,,,,
+,,,,,,
+Scheduled Meeting ID,Quarter,Proposed Date,Day,Time (IST),Venue
+ITSC/Q1/2024-25,Q1,15-May-2024,Wednesday,11:00 AM - 01:00 PM,"Board Room, Corporate Office, Mumbai"
+ITSC/Q2/2024-25,Q2,14-Aug-2024,Wednesday,11:00 AM - 01:00 PM,"Board Room, Corporate Office, Mumbai"
+ITSC/Q3/2024-25,Q3,13-Nov-2024,Wednesday,11:00 AM - 01:00 PM,"Board Room, Corporate Office, Mumbai"
+ITSC/Q4/2024-25,Q4,12-Feb-2025,Wednesday,11:00 AM - 01:00 PM,"Board Room, Corporate Office, Mumbai"
+,,,,,,
+,ACTUAL MEETING TRACKER - FY 2024-25,,,,,
+,,,,,,
+Meeting ID,Qtr,Date Held,No. of Members,Members Present,Quorum Met
+ITSC/Q1/2024-25,Q1,15-May-2024,5,5,Yes
+ITSC/Q2/2024-25,Q2,14-Aug-2024,5,3,No - Adjourned
+ITSC/Q2/2024-25/Q2-A,Q2,21-Aug-2024,5,4,Yes - Reconvened
+ITSC/Q3/2024-25,Q3,13-Nov-2024,5,5,Yes
+ITSC/Q4/2024-25,Q4,12-Feb-2025,5,4,Yes
+,,,,,,
+,ATTENDANCE DETAILS BY MEMBER,,,,,
+,,,,,,
+Member Name,Designation,Expertise Area,Q1 (15-May),Q2 (14-Aug),Q3 (13-Nov),Q4 (12-Feb)
+Mr. Vikram S. Mehta,Chairman - Independent Director,IT Strategy & Governance - CISA,Present,Present,Present,Present
+Dr. Anjali V. Kapoor,Member - Non-Executive Director,Cybersecurity - CISSP,Present,Absent,Present,Present
+Mr. Rajesh K. Patel,Member - Independent Director,Finance / Risk Management,Present,Present,Present,Absent
+Mr. Arjun R. Deshmukh,Member - Non-Executive Director,General Management / Legal,Present,Absent,Present,Present
+Mr. Suresh P. Iyer,Member - Non-Executive Director,No declared IT/cyber expertise,Present,Present (Status: Adjourned),Present,Present
+,,,,,,
+,EXPERTISE GAP ANALYSIS,,,,,
+,,,,,,
+Member Name,Declared Expertise,Date of Declaration,IT/Cyber Qualified,Remarks
+Mr. Vikram S. Mehta,CISA (Certified Information Systems Auditor),15-Apr-2024,Yes,Chairman - Meets expertise criteria
+Dr. Anjali V. Kapoor,CISSP (Certified Information Systems Security Professional),15-Apr-2024,Yes,Meets cybersecurity expertise criteria
+Mr. Rajesh K. Patel,CFA / FRM (Financial Risk Management),15-Apr-2024,No,Finance expertise only - does not meet IT/Cyber criteria
+Mr. Arjun R. Deshmukh,LLB / MBA (General Management),15-Apr-2024,No,Legal & management background - does not meet IT/Cyber criteria
+Mr. Suresh P. Iyer,CA / B.Com (Commerce),15-Apr-2024,No,No declared IT or cyber qualification - GAP IDENTIFIED
+,,,,,,
+,COMPLIANCE SUMMARY - AS PER CHARTER,,,,,
+,,,,,,
+Compliance Parameter,Requirement,Actual Status,Gap / Remark
+Quarterly meetings (4 per year),4 meetings,3 meetings held,GAP: Only 3 meetings against required 4 (Q2 meeting adjourned; reconvened same quarter counted as one)
+Minimum 1 member with IT/cyber expertise,At least 1,3 members,Compliant - Chairman + 2 eligible
+Member expertise declaration on file,100% members,4 of 5 members,GAP: Mr. Suresh P. Iyer lacks IT/cyber expertise
+Quorum in all meetings,100% meetings,4 of 4 meetings after adjournment,Compliant (1 adjournment reconvened)
+Annual self-assessment,Annually,Pending - scheduled for Q4 meeting,Pending
+Minutes circulated within 5 days,5 working days,Compliant for all 3 meetings,Compliant
+Report to Board,Within 7 days of meeting,Compliant,Compliant
+,,,,,,
+,PREPARED BY: Company Secretary,REVIEWED BY: Chairman - ITSC,,,,

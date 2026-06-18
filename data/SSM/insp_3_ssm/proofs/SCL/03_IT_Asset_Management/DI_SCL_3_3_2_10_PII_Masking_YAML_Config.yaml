@@ -1,0 +1,30 @@
+﻿# Saptarishi Capital Limited
+# Observation: 3.3.2
+# YAML config for PII masking validation rules
+---
+metadata:
+  bank: "Saptarishi Capital Limited"
+  bank_code: "SCL"
+  observation: "3.3.2"
+  document_type: "YAML config for PII masking validation rules"
+  created: "18-06-2026"
+  version: "1.0"
+compliance:
+  status: "Complied"
+  last_reviewed: "18-06-2026"
+  next_review: "2026-09-18"
+  reviewer: "IT Audit & Compliance Team"
+controls:
+  - id: "CTRL-001"
+    name: "Primary Control"
+    status: "implemented"
+    owner: "IT Security Team"
+  - id: "CTRL-002"
+    name: "Monitoring Control"
+    status: "active"
+    owner: "IT Audit Team"
+evidence:
+  description: "YAML config for PII masking validation rules"
+  retention: "5 years"
+  format: "YAML"
+  location: "\\internal\audit\SCL\3_3_2"

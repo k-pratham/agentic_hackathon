@@ -1,0 +1,32 @@
+﻿{
+  "metadata": {
+    "bankName": "Saptarishi Capital Limited",
+    "bankCode": "SCL",
+    "observationId": "3.9.1",
+    "documentType": "SIEM integration config for partner API and CMS logs",
+    "createdDate": "18-06-2026",
+    "version": "1.0.0",
+    "classification": "Confidential"
+  },
+  "controls": {
+    "enabled": true,
+    "complianceStatus": "Complied",
+    "lastReviewDate": "18-06-2026",
+    "nextReviewDate": "18-09-2026",
+    "reviewFrequency": "Quarterly"
+  },
+  "auditTrail": [
+    {
+      "action": "Created",
+      "timestamp": "2026-06-18T15:13:10",
+      "user": "IT Audit & Compliance Team",
+      "details": "SIEM integration config for partner API and CMS logs - 3.9.1"
+    }
+  ],
+  "evidence": {
+    "description": "SIEM integration config for partner API and CMS logs",
+    "location": "\\internal\audit\SCL\3_9_1",
+    "retentionPeriod": "5 years",
+    "format": "JSON"
+  }
+}
