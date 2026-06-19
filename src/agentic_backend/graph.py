@@ -323,7 +323,7 @@ def build_graph():
     settings = get_settings()
     
     # Initialize Oracle Persistent Checkpointer
-    pool = OracleConnectionPool(settings.oracle)
+    pool = OracleConnectionPool(settings.app_oracle)
     pool.initialize()
     memory = OracleSaver(pool)
     

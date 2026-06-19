@@ -27,8 +27,8 @@ class LoginRequest(BaseModel):
 @app.post("/api/v1/login")
 async def login_endpoint(req: LoginRequest):
     try:
-        from .tools import get_oracle_connection
-        with get_oracle_connection() as conn:
+        from .tools import get_app_oracle_connection
+        with get_app_oracle_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     "SELECT person_id, person_name, dept_id FROM person_master WHERE person_email = :email AND is_active = 1",

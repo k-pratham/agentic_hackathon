@@ -76,7 +76,7 @@ class IngestionOrchestrator:
         self._settings = settings
 
         # Initialize components
-        self._pool = OracleConnectionPool(settings.oracle)
+        self._pool = OracleConnectionPool(settings.app_oracle)
         self._repo: IngestionRepository | None = None
         self._aphrodite: AphroditeClient | None = None
         self._es_client: ElasticsearchClient | None = None

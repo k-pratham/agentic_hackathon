@@ -26,11 +26,22 @@ def get_es_client() -> Elasticsearch:
 # --- Oracle DB Helper ---
 def get_oracle_connection():
     settings = get_settings()
-    host = settings.oracle.host
-    port = settings.oracle.port
-    service_name = settings.oracle.service_name
-    user = settings.oracle.user
-    password = settings.oracle.password
+    host = settings.dbie_oracle.host
+    port = settings.dbie_oracle.port
+    service_name = settings.dbie_oracle.service_name
+    user = settings.dbie_oracle.user
+    password = settings.dbie_oracle.password
+    
+    dsn = oracledb.makedsn(host, port, service_name=service_name)
+    return oracledb.connect(user=user, password=password, dsn=dsn)
+
+def get_app_oracle_connection():
+    settings = get_settings()
+    host = settings.app_oracle.host
+    port = settings.app_oracle.port
+    service_name = settings.app_oracle.service_name
+    user = settings.app_oracle.user
+    password = settings.app_oracle.password
     
     dsn = oracledb.makedsn(host, port, service_name=service_name)
     return oracledb.connect(user=user, password=password, dsn=dsn)
@@ -90,7 +101,7 @@ def search_schema_index(query: str) -> str:
                 "query": {
                     "multi_match": {
                         "query": query,
-                        "fields": ["dataset_name^2", "description", "sector", "dimensions"]
+                        "fields": ["table_name^2", "table_description", "keywords", "text_content"]
                     }
                 },
                 "size": 5
@@ -100,7 +111,12 @@ def search_schema_index(query: str) -> str:
         results = []
         for hit in response["hits"]["hits"]:
             src = hit["_source"]
-            results.append(f"- Dataset: {src.get('dataset_name')} (ID: {src.get('dataset_id')})\n  Desc: {src.get('description')}\n  Dimensions: {src.get('dimensions')}\n  Sector: {src.get('sector')}")
+            results.append(
+                f"- Table: {src.get('table_name')}\n"
+                f"  Desc: {src.get('table_description')}\n"
+                f"  Keywords: {src.get('keywords')}\n"
+                f"  Example Queries: {src.get('suggested_queries')}"
+            )
             
         return "Found Schema Matches:\n" + "\n".join(results) if results else "No schema found for query."
     except Exception as e:

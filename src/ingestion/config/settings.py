@@ -137,7 +137,8 @@ class SecretsSettings(BaseSettings):
     """Secrets loaded from .env file and environment variables."""
 
     app_env: str = Field(default="dev", alias="APP_ENV")
-    oracle_password: str = Field(default="", alias="ORACLE_PASSWORD")
+    app_oracle_password: str = Field(default="", alias="APP_ORACLE_PASSWORD")
+    dbie_oracle_password: str = Field(default="", alias="DBIE_ORACLE_PASSWORD")
     aphrodite_api_key: str = Field(default="", alias="APHRODITE_API_KEY")
     es_password: str = Field(default="", alias="ES_PASSWORD")
 
@@ -159,7 +160,8 @@ class AppSettings(BaseModel):
     """
 
     env: str = "dev"
-    oracle: OracleSettings = Field(default_factory=OracleSettings)
+    app_oracle: OracleSettings = Field(default_factory=OracleSettings)
+    dbie_oracle: OracleSettings = Field(default_factory=OracleSettings)
     elasticsearch: ElasticsearchSettings = Field(default_factory=ElasticsearchSettings)
     aphrodite: AphroditeSettings = Field(default_factory=AphroditeSettings)
     embedding: EmbeddingSettings = Field(default_factory=EmbeddingSettings)
@@ -203,14 +205,24 @@ def _build_settings() -> AppSettings:
     props = load_properties(str(props_path))
 
     # Build sub-settings from properties + secrets
-    oracle = OracleSettings(
-        host=props.get("oracle.host", "localhost"),
-        port=int(props.get("oracle.port", "1521")),
-        service_name=props.get("oracle.service_name", "XEPDB1"),
-        user=props.get("oracle.user", "ingestion_user"),
-        password=secrets.oracle_password,
-        pool_min=int(props.get("oracle.pool.min", "1")),
-        pool_max=int(props.get("oracle.pool.max", "3")),
+    app_oracle = OracleSettings(
+        host=props.get("app.oracle.host", "localhost"),
+        port=int(props.get("app.oracle.port", "1521")),
+        service_name=props.get("app.oracle.service_name", "XEPDB1"),
+        user=props.get("app.oracle.user", "ingestion_user"),
+        password=secrets.app_oracle_password,
+        pool_min=int(props.get("app.oracle.pool.min", "1")),
+        pool_max=int(props.get("app.oracle.pool.max", "3")),
+    )
+
+    dbie_oracle = OracleSettings(
+        host=props.get("dbie.oracle.host", "localhost"),
+        port=int(props.get("dbie.oracle.port", "1521")),
+        service_name=props.get("dbie.oracle.service_name", "XEPDB1"),
+        user=props.get("dbie.oracle.user", "dbie_user"),
+        password=secrets.dbie_oracle_password,
+        pool_min=int(props.get("dbie.oracle.pool.min", "1")),
+        pool_max=int(props.get("dbie.oracle.pool.max", "3")),
     )
 
     elasticsearch = ElasticsearchSettings(
@@ -290,7 +302,8 @@ def _build_settings() -> AppSettings:
 
     return AppSettings(
         env=app_env,
-        oracle=oracle,
+        app_oracle=app_oracle,
+        dbie_oracle=dbie_oracle,
         elasticsearch=elasticsearch,
         aphrodite=aphrodite,
         embedding=embedding,

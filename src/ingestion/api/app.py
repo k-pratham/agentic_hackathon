@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI):
     logger.info("Starting Admin API — environment: %s", settings.env)
 
     # Initialize Oracle connection pool
-    _pool = OracleConnectionPool(settings.oracle)
+    _pool = OracleConnectionPool(settings.app_oracle)
     _pool.initialize()
 
     # Create repository and inject into route modules
