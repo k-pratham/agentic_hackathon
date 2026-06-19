@@ -32,6 +32,7 @@ from ingestion.pipeline.excel_processor import (
 )
 from ingestion.pipeline.ppt_processor import parse_pptx_to_markdown_slides
 from ingestion.pipeline.txt_processor import parse_txt_to_string
+from ingestion.pipeline.docx_processor import parse_docx_to_string
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +44,8 @@ SUPPORTED_EXTENSIONS: set[str] = {
     ".txt",
     ".ppt",
     ".pptx",
+    ".docx",
+    ".csv",
 }
 
 # Subfolder category mapping
@@ -50,11 +53,13 @@ FOLDER_CATEGORY_MAP: dict[str, str] = {
     "inspection_reports": DocumentCategory.INSPECTION_REPORT,
     "letters": DocumentCategory.LETTER,
     "proof": DocumentCategory.PROOF,
+    "proofs": DocumentCategory.PROOF,
     "kri": DocumentCategory.KRI,
     "compliance_reports": DocumentCategory.COMPLIANCE_REPORT,
     "compliance_report": DocumentCategory.COMPLIANCE_REPORT,
     "alerts_and_advisories": DocumentCategory.ALERT_ADVISORY,
     "alerts_and_advisory": DocumentCategory.ALERT_ADVISORY,
+    "alerts_advisory": DocumentCategory.ALERT_ADVISORY,
 }
 
 
@@ -232,9 +237,9 @@ class IngestionOrchestrator:
     def _process_files_in_category_folder(
         self, folder_path: Path, category: str, inspection, summary: dict
     ) -> None:
-        """Scan and process supported files in a specific category directory."""
+        """Scan and process supported files recursively in a specific category directory."""
         files = sorted(
-            f for f in folder_path.iterdir()
+            f for f in folder_path.rglob("*")
             if f.is_file() and f.suffix.lower() in SUPPORTED_EXTENSIONS
         )
 
@@ -371,12 +376,11 @@ class IngestionOrchestrator:
         full_markdown = convert_pages_to_markdown(
             base64_images=base64_images,
             aphrodite_client=self._aphrodite,
-            max_workers=self._settings.pipeline.max_workers,
+            max_workers=1,  # Force sequential page conversion to avoid local GPU overload
         )
 
         if not full_markdown.strip():
-            logger.warning("Empty markdown output for PDF: %s", pdf_path)
-            return
+            raise ValueError(f"Empty markdown output generated for PDF: {pdf_path}")
 
         # Step 3: Extract metadata from first page
         first_page_sections = full_markdown.split("\n\n\n", 1)
@@ -539,8 +543,10 @@ class IngestionOrchestrator:
         3. Embed sections
         4. Index in Elasticsearch
         """
-        if extension == ".txt":
+        if extension in (".txt", ".csv"):
             content = parse_txt_to_string(str(file_path))
+        elif extension == ".docx":
+            content = parse_docx_to_string(str(file_path))
         elif extension in (".ppt", ".pptx"):
             slides = parse_pptx_to_markdown_slides(str(file_path))
             content = "\n\n\n".join(slides)

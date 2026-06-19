@@ -20,6 +20,31 @@ class ChatRequest(BaseModel):
     department_id: int
     action: str = "chat" # 'chat' or 'resume'
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str = ""
+
+@app.post("/api/v1/login")
+async def login_endpoint(req: LoginRequest):
+    try:
+        from .tools import get_oracle_connection
+        with get_oracle_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT person_id, person_name, dept_id FROM person_master WHERE person_email = :email AND is_active = 1",
+                    [req.email]
+                )
+                row = cur.fetchone()
+                if row:
+                    person_id, person_name, dept_id = row
+                    return {"status": "success", "person_id": person_id, "person_name": person_name, "dept_id": dept_id}
+                else:
+                    raise HTTPException(status_code=401, detail="Invalid credentials or inactive user.")
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/api/v1/chat")
 async def chat_endpoint(req: ChatRequest):
     config = {"configurable": {"thread_id": req.thread_id}}

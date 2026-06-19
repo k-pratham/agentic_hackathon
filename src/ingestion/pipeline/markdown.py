@@ -62,11 +62,11 @@ def convert_pages_to_markdown(
             try:
                 idx, markdown = future.result()
                 results[idx] = markdown
-            except Exception:
+            except Exception as e:
                 logger.error(
                     "Failed to convert page %d", page_idx + 1, exc_info=True
                 )
-                results[page_idx] = ""
+                raise e
 
     # Aggregate pages with separator
     aggregated = "\n\n\n".join(page_md or "" for page_md in results)

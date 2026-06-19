@@ -1,0 +1,78 @@
+<div class="h-full flex flex-col bg-white">
+  <!-- Header -->
+  <div class="h-16 flex items-center justify-between px-6 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-800">Chat with SAMVAD</h2>
+    <div class="flex items-center text-sm text-gray-500 gap-2">
+      <span class="w-2 h-2 rounded-full bg-green-500"></span> Online
+    </div>
+  </div>
+
+  <!-- Messages Area -->
+  <div #scrollContainer class="flex-1 overflow-y-auto p-6 scroll-smooth">
+    
+    <!-- Empty State -->
+    <div *ngIf="messages().length === 0" class="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto">
+      <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+      </div>
+      <h3 class="text-2xl font-semibold text-gray-900 mb-2">Hello {{ authService.user()?.person_name?.split(' ')?.[0] || 'User' }},</h3>
+      <p class="text-gray-500">How can I help you today? Ask me about regulatory data, inspections, or general banking statistics.</p>
+    </div>
+
+    <!-- Message List -->
+    <div class="space-y-6 max-w-3xl mx-auto pb-4">
+      <div *ngFor="let msg of messages()" [ngClass]="{'flex justify-end': msg.role === 'user', 'flex justify-start': msg.role === 'assistant'}">
+        
+        <div class="flex gap-4 max-w-[80%]" [ngClass]="{'flex-row-reverse': msg.role === 'user'}">
+          <!-- Avatar -->
+          <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center"
+               [ngClass]="msg.role === 'user' ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-800 text-white'">
+            <span class="text-sm font-semibold" *ngIf="msg.role === 'user'">{{ authService.user()?.person_name?.charAt(0) || 'U' }}</span>
+            <svg *ngIf="msg.role === 'assistant'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+
+          <!-- Bubble -->
+          <div class="px-5 py-3.5 rounded-2xl whitespace-pre-wrap leading-relaxed shadow-sm"
+               [ngClass]="msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-gray-50 text-gray-800 border border-gray-100 rounded-tl-sm'">
+            {{ msg.content }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Indicator -->
+      <div *ngIf="loading" class="flex justify-start">
+        <div class="flex gap-4 max-w-[80%]">
+          <div class="w-8 h-8 rounded-full bg-gray-800 text-white flex-shrink-0 flex items-center justify-center">
+             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <div class="px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl rounded-tl-sm flex items-center gap-1.5">
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="p-4 bg-white border-t border-gray-100">
+    <div class="max-w-3xl mx-auto relative">
+      <form (ngSubmit)="sendMessage()" class="flex items-center">
+        <input type="text" [(ngModel)]="inputText" name="message" 
+               [placeholder]="'Message SAMVAD...'"
+               class="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 focus:bg-white transition-all shadow-sm text-gray-900 placeholder-gray-400"
+               [disabled]="loading"
+               autocomplete="off">
+        <button type="submit" 
+                [disabled]="!inputText.trim() || loading"
+                class="absolute right-2 p-2 rounded-full text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:bg-gray-300 disabled:text-gray-500 transition-colors shadow-sm">
+          <svg class="w-5 h-5 translate-x-[-1px] translate-y-[1px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </button>
+      </form>
+    </div>
+    <div class="text-center mt-2">
+      <p class="text-xs text-gray-400">SAMVAD may produce inaccurate information. Please verify important data.</p>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,8 @@ Provides methods for:
 import json
 import re
 import logging
+import time
+import random
 
 import httpx
 
@@ -52,7 +54,7 @@ class AphroditeClient:
         temperature: float = 0.1,
     ) -> str:
         """
-        Send a chat completion request to Aphrodite.
+        Send a chat completion request to Aphrodite with retry logic.
 
         Args:
             messages: List of message dicts with 'role' and 'content'.
@@ -77,8 +79,43 @@ class AphroditeClient:
         url = f"{self._base_url}/chat/completions"
         logger.debug("Aphrodite request — model=%s, url=%s", model, url)
 
-        response = self._client.post(url, json=payload)
-        response.raise_for_status()
+        max_retries = 5
+        base_delay = 2.0  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                response = self._client.post(url, json=payload)
+                response.raise_for_status()
+                break  # Success! Break the retry loop
+            except httpx.HTTPStatusError as e:
+                # If we get a rate limit (429) or temporary server error (5xx), retry
+                is_transient = e.response.status_code == 429 or (500 <= e.response.status_code < 600)
+                if is_transient and attempt < max_retries - 1:
+                    delay = base_delay * (2 ** attempt) + random.uniform(0.1, 1.0)
+                    logger.warning(
+                        "Aphrodite request failed with status %d (attempt %d/%d). Retrying in %.2fs...",
+                        e.response.status_code,
+                        attempt + 1,
+                        max_retries,
+                        delay
+                    )
+                    time.sleep(delay)
+                    continue
+                else:
+                    raise
+            except (httpx.ConnectError, httpx.TimeoutException) as e:
+                if attempt < max_retries - 1:
+                    delay = base_delay * (2 ** attempt) + random.uniform(0.1, 1.0)
+                    logger.warning(
+                        "Aphrodite connection error (attempt %d/%d). Retrying in %.2fs...",
+                        attempt + 1,
+                        max_retries,
+                        delay
+                    )
+                    time.sleep(delay)
+                    continue
+                else:
+                    raise
 
         data = response.json()
         choices = data.get("choices", [])

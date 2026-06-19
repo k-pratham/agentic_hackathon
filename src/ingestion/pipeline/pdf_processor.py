@@ -31,6 +31,15 @@ def extract_pages_as_base64(pdf_path: str, dpi_scale: float = 2.0) -> list[str]:
     logger.info("Rendering PDF pages — file=%s, scale=%.1f", pdf_path, dpi_scale)
 
     doc = fitz.open(pdf_path)
+    
+    # Remove malformed StructTreeRoot to prevent "No common ancestor" warnings and improve parsing speed
+    try:
+        cat = doc.pdf_catalog()
+        if cat > 0:
+            doc.xref_set_key(cat, "StructTreeRoot", "null")
+    except Exception:
+        pass
+
     base64_images: list[str] = []
 
     try:

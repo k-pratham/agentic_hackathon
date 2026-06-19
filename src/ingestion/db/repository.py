@@ -164,7 +164,7 @@ class IngestionRepository:
                 row = cur.fetchone()
 
         if row is None:
-            logger.warning(
+            logger.debug(
                 "No inspection found for reference code: %s", insp_reference_code
             )
             return None

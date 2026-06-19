@@ -58,18 +58,58 @@ class OnnxEmbeddingProvider(EmbeddingProvider):
         if self._initialized:
             return
 
+        import os
         from transformers import AutoTokenizer
         from optimum.onnxruntime import ORTModelForFeatureExtraction
 
-        logger.info(
-            "Loading ONNX embedding model: %s", self._settings.model_id
+        model_id = self._settings.model_id
+        logger.info("Loading ONNX embedding model: %s", model_id)
+
+        self._tokenizer = AutoTokenizer.from_pretrained(
+            model_id, trust_remote_code=True
         )
 
-        self._tokenizer = AutoTokenizer.from_pretrained(self._settings.model_id)
+        # Determine the ONNX file name and subfolder to load
+        file_name = "model.onnx"
+        subfolder = "onnx"  # Default for HF repo
+        
+        if os.path.isdir(model_id):
+            # Check local files
+            root_onnx = os.path.join(model_id, "model.onnx")
+            sub_onnx = os.path.join(model_id, "onnx", "model.onnx")
+            
+            if os.path.exists(root_onnx):
+                file_name = "model.onnx"
+                subfolder = None
+                logger.info("Found local ONNX model at root: %s", root_onnx)
+            elif os.path.exists(sub_onnx):
+                file_name = "model.onnx"
+                subfolder = "onnx"
+                logger.info("Found local ONNX model in subfolder: %s", sub_onnx)
+            else:
+                # Neither exists, check for PyTorch/Safetensors to explain the issue
+                has_pytorch = (
+                    os.path.exists(os.path.join(model_id, "model.safetensors")) or
+                    os.path.exists(os.path.join(model_id, "pytorch_model.bin"))
+                )
+                if has_pytorch:
+                    raise FileNotFoundError(
+                        f"The local model directory '{model_id}' contains PyTorch weights, "
+                        "but does not contain an ONNX model file. Because nomic-bert-2048 is a custom "
+                        "architecture, Hugging Face Optimum cannot export it on the fly. Please download the "
+                        "pre-exported ONNX file (model.onnx or onnx/model.onnx) from Hugging Face and place it in the folder."
+                    )
+                else:
+                    raise FileNotFoundError(
+                        f"No ONNX model file found in the local model directory '{model_id}'."
+                    )
+
         self._model = ORTModelForFeatureExtraction.from_pretrained(
-            self._settings.model_id,
-            export=True,
+            model_id,
+            file_name=file_name,
+            subfolder=subfolder,
             provider="CPUExecutionProvider",
+            trust_remote_code=True,
         )
         self._initialized = True
         logger.info("ONNX embedding model loaded successfully")
