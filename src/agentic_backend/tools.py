@@ -1,4 +1,5 @@
 import os
+os.environ["ELASTIC_CLIENT_APIVERSIONING"] = "1"
 import re
 from typing import List, Dict, Any
 from elasticsearch import Elasticsearch
@@ -19,9 +20,11 @@ def get_es_client() -> Elasticsearch:
     user = settings.elasticsearch.user
     password = settings.elasticsearch.password
     
+    headers = {"Accept": "application/json", "Content-Type": "application/json"}
+    
     if user and password:
-        return Elasticsearch(f"{host}:{port}", basic_auth=(user, password))
-    return Elasticsearch(f"{host}:{port}")
+        return Elasticsearch(f"{host}:{port}", basic_auth=(user, password), verify_certs=False, headers=headers)
+    return Elasticsearch(f"{host}:{port}", verify_certs=False, headers=headers)
 
 # --- Oracle DB Helper ---
 def get_oracle_connection():
@@ -70,19 +73,21 @@ def data_discovery_tool(entity_name: str, department_id: int) -> str:
     try:
         response = es.search(
             index=index_name,
-            body={
-                "query": {
-                    "bool": {
-                        "must": [{"match": {"entity_name": entity_name}}],
-                        "filter": [{"term": {"dept_id": department_id}}]
-                    }
-                },
-                "size": 1
-            }
+            query={
+                "multi_match": {
+                    "query": entity_name,
+                    "fields": ["entity_name^3", "text_content"],
+                    "fuzziness": "AUTO"
+                }
+            },
+            size=10
         )
         if response["hits"]["total"]["value"] > 0:
-            return f"Entity '{entity_name}' FOUND in the database."
-        return f"Entity '{entity_name}' NOT FOUND in this department."
+            for hit in response["hits"]["hits"]:
+                if str(hit["_source"].get("dept_id", "")) == str(department_id):
+                    return f"Entity '{entity_name}' FOUND in this department."
+            return f"Entity '{entity_name}' FOUND, but it is restricted to a different department (RBAC)."
+        return f"Entity '{entity_name}' NOT FOUND."
     except Exception as e:
         return f"Error searching entity: {str(e)}"
 
@@ -97,15 +102,13 @@ def search_schema_index(query: str) -> str:
     try:
         response = es.search(
             index=settings.agent.schema_index,
-            body={
-                "query": {
-                    "multi_match": {
-                        "query": query,
-                        "fields": ["table_name^2", "table_description", "keywords", "text_content"]
-                    }
-                },
-                "size": 5
-            }
+            query={
+                "multi_match": {
+                    "query": query,
+                    "fields": ["table_name^2", "table_description", "keywords", "text_content"]
+                }
+            },
+            size=5
         )
         
         results = []
@@ -153,32 +156,51 @@ def execute_oracle_sql(sql_query: str) -> str:
     except Exception as e:
         return f"Oracle Execution Error: {str(e)}"
 
+from ingestion.clients.embedding import create_embedding_provider
+
 @tool
 def search_regulatory_vectors(query: str, department_id: int) -> str:
     """
-    Perform a semantic vector search across unstructured regulatory document text.
+    Perform a hybrid search (keyword + semantic cosine similarity) across unstructured regulatory document text.
     Strictly filters results to the specified department_id.
     """
     settings = get_settings()
     es = get_es_client()
+    
     try:
+        # Generate the query vector
+        embedder = create_embedding_provider(settings.embedding)
+        query_vector = embedder.generate(query)
+        embedder.close()
+        
         response = es.search(
             index=settings.elasticsearch.index,
-            body={
-                "query": {
-                    "bool": {
-                        "must": [{"match": {"text_content": query}}],
-                        "filter": [{"term": {"dept_id": department_id}}]
+            query={
+                "script_score": {
+                    "query": {
+                        "bool": {
+                            "should": [
+                                {"match": {"text_content": query}},
+                                {"match": {"entity_name": query}}
+                            ],
+                            "minimum_should_match": 0,
+                            "filter": [{"term": {"dept_id": department_id}}]
+                        }
+                    },
+                    "script": {
+                        "source": "cosineSimilarity(params.query_vector, 'content_vector') + 1.0",
+                        "params": {"query_vector": query_vector}
                     }
-                },
-                "size": 3
-            }
+                }
+            },
+            size=3
         )
         results = []
         for hit in response["hits"]["hits"]:
             src = hit["_source"]
-            results.append(f"- Entity: {src.get('entity_name')} (Report Year: {src.get('report_year')})\n  Section: {src.get('section_index')}\n  Content: {src.get('text_content')}")
-        return "Found Unstructured Findings:\n" + "\n\n".join(results) if results else "No text findings found for your department."
+            score = hit.get("_score", 0.0)
+            results.append(f"- Entity: {src.get('entity_name')} (Report Year: {src.get('report_year')})\n  Section: {src.get('section_index')} (Score: {score:.2f})\n  Content: {src.get('text_content')}")
+        return "Found Unstructured Findings (Hybrid Search):\n" + "\n\n".join(results) if results else "No text findings found for your department."
     except Exception as e:
         return f"Error searching vector index: {str(e)}"
 

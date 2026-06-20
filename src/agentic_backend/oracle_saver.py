@@ -29,7 +29,7 @@ class OracleSaver(BaseCheckpointSaver):
         checkpoint_id = config["configurable"].get("checkpoint_id")
         
         sql = """
-            SELECT checkpoint_id, parent_checkpoint_id, checkpoint_data, metadata_data 
+            SELECT checkpoint_id, parent_checkpoint_id, checkpoint_data, metadata_data, type
             FROM agent_checkpoints 
             WHERE thread_id = :thread_id
         """
@@ -49,12 +49,26 @@ class OracleSaver(BaseCheckpointSaver):
         if not row:
             return None
             
-        cid, parent_id, cp_data, meta_data = row
+        cid, parent_id, cp_data, meta_data, cp_type = row
         
-        # In Oracle, BLOB columns return LOB objects, we need to read() them
-        checkpoint = self.serde.loads(cp_data.read() if hasattr(cp_data, 'read') else cp_data)
-        metadata = self.serde.loads(meta_data.read() if hasattr(meta_data, 'read') else meta_data)
+        cp_bytes = cp_data.read() if hasattr(cp_data, 'read') else cp_data
+        meta_bytes = meta_data.read() if hasattr(meta_data, 'read') else meta_data
         
+        try:
+            import pickle
+            if cp_type == "pickle":
+                checkpoint = pickle.loads(cp_bytes)
+                metadata = pickle.loads(meta_bytes)
+            elif hasattr(self.serde, 'loads'):
+                checkpoint = self.serde.loads(cp_bytes)
+                metadata = self.serde.loads(meta_bytes)
+            else:
+                checkpoint = self.serde.loads_typed((cp_type or "json", cp_bytes))
+                metadata = self.serde.loads_typed(("json", meta_bytes))
+        except Exception as e:
+            logger.error(f"Failed to deserialize checkpoint: {e}")
+            return None
+                
         return CheckpointTuple(
             config={"configurable": {"thread_id": thread_id, "checkpoint_id": cid}},
             checkpoint=checkpoint,
@@ -67,16 +81,18 @@ class OracleSaver(BaseCheckpointSaver):
         config: RunnableConfig,
         checkpoint: Checkpoint,
         metadata: CheckpointMetadata,
+        new_versions: Any = None,
     ) -> RunnableConfig:
         thread_id = config["configurable"]["thread_id"]
         checkpoint_id = checkpoint["id"]
         
         # In LangGraph, parent_checkpoint_id is stored in config, not checkpoint
         parent_checkpoint_id = config["configurable"].get("checkpoint_id")
-        type_val = "checkpoint"
         
-        cp_bytes = self.serde.dumps(checkpoint)
-        meta_bytes = self.serde.dumps(metadata)
+        import pickle
+        type_val = "pickle"
+        cp_bytes = pickle.dumps(checkpoint)
+        meta_bytes = pickle.dumps(metadata)
 
         sql = """
             INSERT INTO agent_checkpoints (
@@ -112,7 +128,7 @@ class OracleSaver(BaseCheckpointSaver):
     ) -> Iterator[CheckpointTuple]:
         thread_id = config["configurable"]["thread_id"]
         sql = """
-            SELECT checkpoint_id, parent_checkpoint_id, checkpoint_data, metadata_data 
+            SELECT checkpoint_id, parent_checkpoint_id, checkpoint_data, metadata_data, type
             FROM agent_checkpoints 
             WHERE thread_id = :thread_id
         """
@@ -133,9 +149,24 @@ class OracleSaver(BaseCheckpointSaver):
                 rows = cur.fetchall()
                 
         for row in rows:
-            cid, parent_id, cp_data, meta_data = row
-            checkpoint = self.serde.loads(cp_data.read() if hasattr(cp_data, 'read') else cp_data)
-            metadata = self.serde.loads(meta_data.read() if hasattr(meta_data, 'read') else meta_data)
+            cid, parent_id, cp_data, meta_data, cp_type = row
+            cp_bytes = cp_data.read() if hasattr(cp_data, 'read') else cp_data
+            meta_bytes = meta_data.read() if hasattr(meta_data, 'read') else meta_data
+            
+            try:
+                import pickle
+                if cp_type == "pickle":
+                    checkpoint = pickle.loads(cp_bytes)
+                    metadata = pickle.loads(meta_bytes)
+                elif hasattr(self.serde, 'loads'):
+                    checkpoint = self.serde.loads(cp_bytes)
+                    metadata = self.serde.loads(meta_bytes)
+                else:
+                    checkpoint = self.serde.loads_typed((cp_type or "json", cp_bytes))
+                    metadata = self.serde.loads_typed(("json", meta_bytes))
+            except Exception as e:
+                logger.error(f"Failed to deserialize checkpoint in list: {e}")
+                continue
             
             yield CheckpointTuple(
                 config={"configurable": {"thread_id": thread_id, "checkpoint_id": cid}},
@@ -143,3 +174,10 @@ class OracleSaver(BaseCheckpointSaver):
                 metadata=metadata,
                 parent_config={"configurable": {"thread_id": thread_id, "checkpoint_id": parent_id}} if parent_id else None
             )
+
+    def put_writes(self, config: RunnableConfig, writes: Any, task_id: str) -> None:
+        """
+        Required by newer versions of LangGraph to save intermediate node writes.
+        A simple pass is usually sufficient if intermediate resumption is not needed.
+        """
+        pass

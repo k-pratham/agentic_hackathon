@@ -105,17 +105,41 @@ Output ONLY a raw JSON dictionary with the following keys:
 - "visualization_required": boolean (true if asking for a chart/graph)
 """
     import json
+    import re
+    import json_repair
+    
     try:
         res = llm.invoke([SystemMessage(content=prompt)])
-        content = res.content.replace("```json", "").replace("```", "").strip()
-        decision = json.loads(content)
+        content = res.content
+        # Remove <think> tags completely
+        if "</think>" in content:
+            content = content.split("</think>")[-1]
+            
+        content = content.replace("```json", "").replace("```", "").strip()
+        
+        # Use json-repair to parse malformed or messy JSON
+        decision = json_repair.loads(content)
+        
+        # json_repair might return a list if it finds multiple objects
+        if isinstance(decision, list) and len(decision) > 0:
+            decision = decision[-1]
+            
+        if not decision or not isinstance(decision, dict) or "route" not in decision:
+            raise ValueError(f"No valid JSON found in output")
+            
         route = decision.get("route", "")
     except Exception as e:
-        # Fallback if LLM fails JSON or times out
+        import traceback
+        error_msg = str(e)
+        raw_out = res.content if 'res' in locals() else 'None'
+        import logging
+        logging.getLogger(__name__).error(f"Orchestrator LLM Failed: {e} | Raw Output: {raw_out}")
+        
+        # Fallback to frontend so user can see exactly why it failed
         return {
             "requires_clarification": True,
             "execution_plan": [],
-            "clarification_question": "I'm sorry, our AI service is currently experiencing high load. Could you please rephrase your query?",
+            "clarification_question": f"SYSTEM ERROR: {error_msg}\n\nRAW LLM OUTPUT:\n{raw_out}",
             "clarifier_return_node": "orchestrator",
             "original_query": query
         }
@@ -249,6 +273,14 @@ Analysis: {state.get('analytical_insights', 'N/A')}"""
     try:
         res = llm.invoke([SystemMessage(content=prompt)])
         content = res.content
+        
+        # Strip reasoning tags before sending to the frontend
+        if "</think>" in content:
+            content = content.split("</think>")[-1].strip()
+            
+        # Strip markdown formatting blocks if the LLM wrapped its answer
+        content = content.replace("```markdown", "").replace("```", "").strip()
+            
     except Exception as e:
         content = f"Sorry, I encountered an internal error while synthesizing the response: {str(e)}"
         

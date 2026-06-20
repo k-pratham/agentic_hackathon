@@ -3,7 +3,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
-from .graph import build_graph
+try:
+    from .graph import build_graph
+except ImportError:
+    from graph import build_graph
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -27,7 +30,11 @@ class LoginRequest(BaseModel):
 @app.post("/api/v1/login")
 async def login_endpoint(req: LoginRequest):
     try:
-        from .tools import get_app_oracle_connection
+        try:
+            from .tools import get_app_oracle_connection
+        except ImportError:
+            from tools import get_app_oracle_connection
+            
         with get_app_oracle_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -80,6 +87,9 @@ async def chat_endpoint(req: ChatRequest):
             }
             
         # If it finished normally, return the final response
+        if "messages" not in current_state.values:
+            return JSONResponse(status_code=500, content={"error": "Agent memory failed to load. Please try clearing the database checkpoints or start a new thread."})
+            
         final_message = current_state.values["messages"][-1].content
         chart = current_state.values.get("chart_json", {})
         
